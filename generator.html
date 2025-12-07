@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head><title>Retro Icon Gen</title></head>
+<body style="background:#888; text-align:center; padding:50px;">
+    <h1>Pixel Icon Generator 2.0</h1>
+    <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+        <button onclick="drawIcon('logo')">Logo</button>
+        <button onclick="drawIcon('home')">Home</button>
+        <button onclick="drawIcon('blog')">Blog</button>
+        <button onclick="drawIcon('projects')">Projects</button>
+        <button onclick="drawIcon('posts')">Posts</button>
+        <button onclick="drawIcon('contact')">Mail (Dock)</button>
+        <button onclick="drawIcon('mail')">Mail (Desktop)</button>
+        <button onclick="drawIcon('nav')">Nav (Desktop)</button>
+    </div>
+    
+    <script>
+        function drawIcon(type) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 64; canvas.height = 64; // Larger canvas for desktop icons
+            const ctx = canvas.getContext('2d');
+            
+            // Helper
+            const rect = (x,y,w,h,c) => { ctx.fillStyle=c; ctx.fillRect(x,y,w,h); };
+            
+            // Scaling for dock icons (32px centered) vs desktop (48px)
+            let s = 1; 
+            let ox = 0; let oy = 0;
+            
+            if (['mail','nav'].includes(type)) {
+                // Desktop Icons (Larger)
+                s = 1.5; ox = 8; oy = 8;
+            } else {
+                // Dock Icons (Smaller, centered in 64)
+                s = 1; ox = 16; oy = 16;
+            }
+
+            if (type === 'logo') {
+                rect(ox+8,oy+8, 16*s, 16*s, '#333'); 
+                rect(ox+7,oy+7, 16*s, 16*s, '#55AA55');
+                rect(ox+10,oy+4, 4*s, 4*s, '#55AA55');
+            }
+            
+            if (type === 'home') {
+                rect(ox+4, oy+4, 24*s, 18*s, '#333');
+                rect(ox+5, oy+5, 22*s, 16*s, '#EEE');
+                rect(ox+7, oy+7, 18*s, 12*s, '#88D');
+            }
+            
+            if (type === 'blog') {
+                rect(ox+6, oy+2, 20*s, 28*s, '#FFF');
+                rect(ox+6, oy+2, 20*s, 28*s, 'rgba(0,0,0,0.1)');
+                for(let i=10; i<26; i+=3) rect(ox+8, oy+i, 16*s, 1*s, '#444');
+            }
+
+            if (type === 'projects') {
+                rect(ox+2, oy+10, 28*s, 18*s, '#Eebb66');
+                rect(ox+2, oy+6, 10*s, 4*s, '#DDAA55');
+            }
+
+            if (type === 'posts') {
+                 ctx.beginPath();
+                 ctx.arc(ox+16*s, oy+16*s, 14*s, 0, Math.PI*2);
+                 ctx.fillStyle = '#4488AA'; ctx.fill();
+            }
+
+            if (type === 'contact' || type === 'mail') {
+                rect(ox+2, oy+8, 28*s, 18*s, '#EEE');
+                // Flap
+                ctx.beginPath(); ctx.moveTo(ox+2, oy+8); 
+                ctx.lineTo(ox+16*s, oy+20*s); ctx.lineTo(ox+30*s, oy+8);
+                ctx.strokeStyle='#888'; ctx.stroke();
+            }
+
+            if (type === 'nav') {
+                // Map Pin
+                ctx.beginPath();
+                ctx.arc(ox+16*s, oy+12*s, 10*s, 0, Math.PI*2);
+                ctx.fillStyle = '#D22'; ctx.fill();
+                ctx.beginPath(); ctx.moveTo(ox+16*s, oy+12*s);
+                ctx.lineTo(ox+16*s, oy+30*s);
+                ctx.strokeStyle = '#DDD'; ctx.lineWidth=3; ctx.stroke();
+            }
+
+            // Download
+            const link = document.createElement('a');
+            link.download = type + '.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+    </script>
+</body>
+</html>
+

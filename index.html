@@ -1,13 +1,162 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My GitHub Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anish Teja's Website</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Hello, I'm Anish!</h1>
-  <p>This is my first GitHub Pages website.</p>
+
+    <div class="scanlines"></div>
+
+    <div class="desktop-icons-right">
+        <div class="desktop-icon" onclick="app.navigateTo('contact')">
+            <img src="assets/mail.png" alt="Mail">
+            <span>Contact</span>
+        </div>
+        <div class="desktop-icon" onclick="app.navigateTo('map')">
+            <img src="assets/nav.png" alt="Navigation">
+            <span>Map</span>
+        </div>
+    </div>
+
+    <header class="system-bar bevel-out" role="banner">
+        <div class="menu-left">
+            <div class="menu-item logo-item" tabindex="0">
+                <div class="bezel-wrapper">
+                    <svg class="sys-logo" width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <radialGradient id="bulbGlow" cx="50%" cy="45%" r="55%" fx="50%" fy="45%">
+                                <stop offset="0%" style="stop-color:#fff8e1;stop-opacity:1" />
+                                <stop offset="40%" style="stop-color:#ffb300;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#e65100;stop-opacity:1" />
+                            </radialGradient>
+                            <style>
+                                @keyframes harsh-blink {
+                                    0%, 50% { 
+                                        opacity: 1; 
+                                        filter: drop-shadow(0 0 4px #ffeb3b) drop-shadow(0 0 8px #ff9800) drop-shadow(0 0 12px #ff5722);
+                                    }
+                                    50.01%, 100% { 
+                                        opacity: 0.3; 
+                                        filter: none; 
+                                    }
+                                }
+
+                                .bulb-glass {
+                                    animation: harsh-blink 0.8s steps(1) infinite;
+                                }
+                            </style>
+                        </defs>
+                        <path class="bulb-glass" d="M12,2C8.13,2 5,5.13 5,9C5,12.38 7.39,15.2 10.5,15.87V18H13.5V15.87C16.61,15.2 19,12.38 19,9C19,5.13 15.87,2 12,2Z" fill="url(#bulbGlow)"/>
+                        <rect x="9" y="19" width="6" height="2" fill="#78909c"/>
+                        <rect x="10" y="21" width="4" height="2" rx="1" fill="#455a64"/>
+                        <path d="M10,8 L11,11 L13,8 L14,11" fill="none" stroke="#ffeb3b" stroke-width="1" opacity="0.5" />
+                    </svg>
+                </div>
+                <div class="dropdown bevel-out">
+                    <button onclick="app.openModal('Anish Teja\'s Website', 'Version 1.0\nCreated with vanilla HTML, CSS and JavaScript')">About</button>
+                    <button onclick="app.openModal('Credits', '@Copyleft All Wrongs Reserved: Anish Teja Bramhajosyula\nCo-created with Aravind Bramhajosyula')">Credits</button>
+                </div>
+            </div>
+
+            <div class="menu-item" id="menu-variable" tabindex="0">
+                <span class="label">Home</span>
+                <div class="dropdown bevel-out" id="dropdown-variable">
+                    </div>
+            </div>
+
+            <div class="menu-item" tabindex="0">
+                <span class="label">View</span>
+                <div class="dropdown bevel-out">
+                    <button onclick="app.cycleBackground()">Cycle Backgrounds</button>
+                    <button onclick="app.toggleDock()">Toggle Dock</button>
+                </div>
+            </div>
+
+            <div class="menu-item" tabindex="0">
+                <span class="label">Special</span>
+                <div class="dropdown bevel-out">
+                    <button onclick="app.navigateTo('contact')">Contact</button>
+                    <button onclick="app.openModal('Socials', 'Twitter: @example<br>GitHub: @example')">Socials</button>
+                    <div class="separator bevel-in"></div>
+                    <button onclick="app.openModal('Dangerous', 'DISCLAIMER: Stay away! Only inflammatory and opinionated takes!')">Dangerous</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-right">
+            <span class="pinstripe-box">Anish Teja's Website</span>
+            <span id="clock" class="clock bevel-in">12:00 PM</span>
+        </div>
+    </header>
+
+    <main id="desktop" class="desktop">
+        
+        <div id="window-frame" class="window bevel-out hidden" role="dialog">
+            <div class="window-header bevel-out">
+                <div class="window-controls">
+                    <button class="win-btn close-btn" onclick="app.navigateTo('home')" aria-label="Close"></button>
+                </div>
+                <div class="window-title-bar">
+                    <span class="title-lines"></span>
+                    <span id="win-title" class="title-text">Application</span>
+                    <span class="title-lines"></span>
+                </div>
+                <div class="window-controls right-fake">
+                    <div class="collapse-box bevel-in"></div>
+                </div>
+            </div>
+            
+            <div class="window-body">
+                <div class="window-content-frame bevel-in">
+                    <div id="window-content" class="window-content">
+                        </div>
+                </div>
+                <div class="window-footer">
+                    <span class="footer-text">1 item</span>
+                    <div id="resize-handle" class="resize-handle">///</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <nav id="dock-container" class="dock-container">
+        <div id="dock-drawer" class="dock-drawer bevel-out">
+            <div class="dock-track bevel-in">
+                <button class="dock-icon" onclick="app.navigateTo('home')" title="Home">
+                    <img src="assets/home.png" alt="Home">
+                    <span>Home</span>
+                </button>
+                <button class="dock-icon" onclick="app.navigateTo('blog')" title="Blog">
+                    <img src="assets/blog.png" alt="Blog">
+                    <span>Blog</span>
+                </button>
+                <button class="dock-icon" onclick="app.navigateTo('projects')" title="Projects">
+                    <img src="assets/projects.png" alt="Projects">
+                    <span>Projs</span>
+                </button>
+                <button class="dock-icon" onclick="app.navigateTo('posts')" title="Posts">
+                    <img src="assets/posts.png" alt="Posts">
+                    <span>Posts</span>
+                </button>
+                <button class="dock-icon" onclick="app.navigateTo('contact')" title="Contact">
+                    <img src="assets/contact.png" alt="Contact">
+                    <span>Mail</span>
+                </button>
+            </div>
+            
+            <button id="dock-tab" class="dock-tab-pill bevel-out" onclick="app.toggleDock()">
+                <div class="pill-grip">|||</div>
+            </button>
+        </div>
+    </nav>
+
+    <audio id="sfx-open" src="assets/open.wav"></audio>
+    <audio id="sfx-click" src="assets/click.wav"></audio>
+
+    <script src="script.js"></script>
 </body>
 </html>
-
-
-
