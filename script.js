@@ -268,7 +268,7 @@ const pages = {
             </style>
             
             <p style="text-align:center; font-size:12px; color:#555; margin-top:10px;">
-                Updating core systems...
+                Website is still being built...
             </p>
         ` 
     },
