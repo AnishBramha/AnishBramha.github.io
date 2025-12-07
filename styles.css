@@ -394,3 +394,66 @@ body {
   pointer-events: none;
   z-index: 9999;
 }
+
+/* --- MOBILE & TABLET RESPONSIVENESS --- */
+@media (max-width: 768px) {
+    /* 1. Remove Desktop Icons */
+    .desktop-icons-right {
+        display: none !important;
+    }
+
+    /* 2. System Bar Adjustments */
+    .system-bar {
+        padding: 0 2px;
+    }
+    .pinstripe-box {
+        display: none; 
+    }
+    .clock {
+        font-size: 10px;
+        padding: 2px 4px;
+    }
+    .menu-item {
+        padding: 6px 8px;
+    }
+
+    /* 3. Window Centering & Spacing */
+    .window {
+        width: 90% !important;   /* Occupy 90% width */
+        left: 5% !important;     /* 5% left + 90% width + 5% right = Centered */
+        top: 50px !important;    /* Clear header */
+        height: calc(100% - 180px) !important; /* Reserve 180px at bottom for Dock to avoid clash */
+        min-width: 0;
+    }
+
+    /* Force window content to vertically center its children (the grey box) */
+    .window-content {
+        padding: 10px !important; 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center;
+    }
+
+    .window-header {
+        height: 36px;
+    }
+    .win-btn {
+        width: 24px; height: 24px;
+    }
+
+    /* 4. Dock Adjustments */
+    .dock-tab-pill {
+        width: 32px; height: 70px;
+    }
+    .dock-track {
+        height: 70px;
+        gap: 8px;
+        padding: 0 8px;
+    }
+    .dock-icon {
+        width: 44px;
+    }
+    .dock-icon img {
+        width: 28px; height: 28px;
+    }
+}

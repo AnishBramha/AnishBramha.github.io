@@ -71,6 +71,18 @@ const pages = {
                     align-items: center;
                     padding-top: 20px;
                 }
+                
+                /* Mobile Specific Styles for this Component */
+                @media (max-width: 768px) {
+                    .construction-zone {
+                        /* Scale down slightly and ensure centering */
+                        transform: scale(0.85);
+                        transform-origin: center top; 
+                        margin-bottom: -20px; /* Reduce extra whitespace from scaling */
+                        width: 100%;
+                        max-width: 400px; /* Prevent it getting too wide on tablets */
+                    }
+                }
 
                 /* --- Hazard Tape --- */
                 .warning-tape {
@@ -256,7 +268,7 @@ const pages = {
             </style>
             
             <p style="text-align:center; font-size:12px; color:#555; margin-top:10px;">
-                Website is still being built...
+                Updating core systems...
             </p>
         ` 
     },
@@ -407,18 +419,39 @@ const app = {
 
     setupEvents: () => {
         document.querySelectorAll('.menu-item').forEach(item => {
+            // Visual feedback for mouse
             item.addEventListener('mousedown', () => item.classList.add('inset'));
             item.addEventListener('mouseup', () => item.classList.remove('inset'));
 
+            // Visual feedback for touch (passive: true improves scroll performance)
+            item.addEventListener('touchstart', () => item.classList.add('inset'), {passive: true});
+            item.addEventListener('touchend', () => item.classList.remove('inset'));
+
+            // LOGIC HANDLED HERE FOR BOTH MOUSE AND TOUCH
+            // (Touch devices fire click after a short delay, so we rely on that)
             item.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent document click from immediately closing it
+                
                 const isActive = item.classList.contains('active');
-                app.closeMenus();
-                if (!isActive) item.classList.add('active');
-                e.stopPropagation();
+                
+                // Close all other menus first
+                app.closeMenus(); 
+                
+                // If it wasn't active before, open it now
+                if (!isActive) {
+                    item.classList.add('active');
+                }
             });
         });
 
+        // Close menus when clicking anywhere else
         document.addEventListener('click', app.closeMenus);
+        
+        // Also catch background touches to close menus on mobile
+        document.addEventListener('touchstart', (e) => {
+            if (!e.target.closest('.menu-item')) app.closeMenus();
+        }, {passive: true});
+
         document.getElementById('dock-container').addEventListener('click', e => e.stopPropagation());
         document.getElementById('window-frame').addEventListener('click', e => e.stopPropagation());
     },
@@ -429,42 +462,64 @@ const app = {
         
         let startX, startY, startWidth, startHeight;
 
-        handle.addEventListener('mousedown', (e) => {
+        // Unified Start Handler (Mouse + Touch)
+        const startResize = (e) => {
             state.isResizing = true;
-            startX = e.clientX;
-            startY = e.clientY;
+            // Get clientX/Y from mouse or touch
+            const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+            
+            startX = clientX;
+            startY = clientY;
             startWidth = parseInt(document.defaultView.getComputedStyle(win).width, 10);
             startHeight = parseInt(document.defaultView.getComputedStyle(win).height, 10);
             
-            document.documentElement.addEventListener('mousemove', doDrag, false);
-            document.documentElement.addEventListener('mouseup', stopDrag, false);
-            e.preventDefault(); 
-        });
+            // Add listeners to document to track movement outside the handle
+            if (e.type.includes('touch')) {
+                document.documentElement.addEventListener('touchmove', doDrag, {passive: false});
+                document.documentElement.addEventListener('touchend', stopDrag, false);
+            } else {
+                document.documentElement.addEventListener('mousemove', doDrag, false);
+                document.documentElement.addEventListener('mouseup', stopDrag, false);
+                e.preventDefault();
+            }
+        };
 
-        function doDrag(e) {
+        const doDrag = (e) => {
             if (!state.isResizing) return;
             
-            const deltaX = (e.clientX - startX) * 2;
-            const deltaY = (e.clientY - startY) * 2;
+            // Prevent scrolling while resizing on mobile
+            if(e.type.includes('touch')) e.preventDefault();
+
+            const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+            
+            const deltaX = (clientX - startX) * 2; // Sensitivity factor
+            const deltaY = (clientY - startY) * 2;
 
             const newW = startWidth + deltaX;
             const newH = startHeight + deltaY;
             
-            if (newW > 300 && newW < window.innerWidth - 50) {
+            // Constraints
+            if (newW > 250 && newW < window.innerWidth - 10) {
                 win.style.width = newW + 'px';
-                win.style.left = (window.innerWidth - newW) / 2 + 'px';
             }
-            if (newH > 200 && newH < window.innerHeight - 50) {
+            if (newH > 150 && newH < window.innerHeight - 40) {
                 win.style.height = newH + 'px';
-                win.style.top = (window.innerHeight - newH) / 2 + 'px';
             }
-        }
+        };
 
-        function stopDrag() {
+        const stopDrag = () => {
             state.isResizing = false;
             document.documentElement.removeEventListener('mousemove', doDrag, false);
             document.documentElement.removeEventListener('mouseup', stopDrag, false);
-        }
+            document.documentElement.removeEventListener('touchmove', doDrag);
+            document.documentElement.removeEventListener('touchend', stopDrag);
+        };
+
+        // Attach Listeners
+        handle.addEventListener('mousedown', startResize);
+        handle.addEventListener('touchstart', startResize, {passive: false});
     }
 };
 
