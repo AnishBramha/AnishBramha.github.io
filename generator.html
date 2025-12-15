@@ -12,28 +12,24 @@
         <button onclick="drawIcon('contact')">Mail (Dock)</button>
         <button onclick="drawIcon('mail')">Mail (Desktop)</button>
         <button onclick="drawIcon('nav')">Nav (Desktop)</button>
+        <button onclick="drawIcon('socials')">Socials (Dock)</button>
     </div>
     
     <script>
         function drawIcon(type) {
             const canvas = document.createElement('canvas');
-            canvas.width = 64; canvas.height = 64; // Larger canvas for desktop icons
+            canvas.width = 64; canvas.height = 64; 
             const ctx = canvas.getContext('2d');
             
             // Helper
             const rect = (x,y,w,h,c) => { ctx.fillStyle=c; ctx.fillRect(x,y,w,h); };
             
-            // Scaling for dock icons (32px centered) vs desktop (48px)
             let s = 1; 
             let ox = 0; let oy = 0;
             
-            if (['mail','nav'].includes(type)) {
-                // Desktop Icons (Larger)
-                s = 1.5; ox = 8; oy = 8;
-            } else {
-                // Dock Icons (Smaller, centered in 64)
-                s = 1; ox = 16; oy = 16;
-            }
+            if (['mail','nav'].includes(type)) { s = 1.5; ox = 8; oy = 8; }
+            else if (['socials', 'projects', 'blog', 'home'].includes(type)) { s = 1.35; ox = 10; oy = 10; }
+            else { s = 1; ox = 16; oy = 16; }
 
             if (type === 'logo') {
                 rect(ox+8,oy+8, 16*s, 16*s, '#333'); 
@@ -42,20 +38,65 @@
             }
             
             if (type === 'home') {
-                rect(ox+4, oy+4, 24*s, 18*s, '#333');
-                rect(ox+5, oy+5, 22*s, 16*s, '#EEE');
-                rect(ox+7, oy+7, 18*s, 12*s, '#88D');
+                s = 1.4; ox = 10; oy = 6;
+                const cWall='#F2F0E6'; const cWallShadow='#D8D4C0'; const cRoof='#4A3B32'; const cRoofLight='#655246';
+                const cDoor='#D98E45'; const cDoorDark='#B56C2B'; const cShutter='#C62828'; const cShutterDark='#8E1C1C';
+                const cWindow='#81D4FA'; const cChimney='#E0E0E0'; const cShadow='rgba(0,0,0,0.3)';
+
+                ctx.fillStyle=cShadow; ctx.beginPath(); ctx.moveTo(ox+2*s, oy+40*s); ctx.lineTo(ox+30*s, oy+40*s); ctx.lineTo(ox+34*s, oy+36*s); ctx.lineTo(ox+36*s, oy+20*s); ctx.lineTo(ox+16*s, oy+4*s); ctx.fill();
+                rect(ox+22*s, oy+8*s, 4*s, 8*s, cChimney); rect(ox+21*s, oy+7*s, 6*s, 2*s, '#FFF');
+                ctx.fillStyle=cWall; ctx.beginPath(); ctx.moveTo(ox+4*s, oy+18*s); ctx.lineTo(ox+28*s, oy+18*s); ctx.lineTo(ox+28*s, oy+40*s); ctx.lineTo(ox+4*s, oy+40*s); ctx.fill();
+                rect(ox+4*s, oy+18*s, 24*s, 2*s, cShadow);
+                ctx.fillStyle=cRoof; ctx.beginPath(); ctx.moveTo(ox+16*s, oy); ctx.lineTo(ox+32*s, oy+18*s); ctx.lineTo(ox, oy+18*s); ctx.fill();
+                ctx.fillStyle=cRoofLight; ctx.beginPath(); ctx.moveTo(ox+16*s, oy); ctx.lineTo(ox+16*s, oy+18*s); ctx.lineTo(ox, oy+18*s); ctx.fill();
+                const dx=ox+12*s; const dy=oy+26*s; rect(dx, dy, 8*s, 14*s, cDoor); rect(dx, dy, 8*s, 1*s, cDoorDark); rect(dx, dy, 1*s, 14*s, cDoorDark);
+                ctx.beginPath(); ctx.arc(dx+6.5*s, dy+7*s, 1*s, 0, Math.PI*2); ctx.fillStyle='#FFD700'; ctx.fill();
+                rect(dx+1.5*s, dy+2*s, 2*s, 4*s, 'rgba(0,0,0,0.1)'); rect(dx+4.5*s, dy+2*s, 2*s, 4*s, 'rgba(0,0,0,0.1)'); rect(dx+1.5*s, dy+8*s, 2*s, 4*s, 'rgba(0,0,0,0.1)'); rect(dx+4.5*s, dy+8*s, 2*s, 4*s, 'rgba(0,0,0,0.1)');
+                const wx=ox+13*s; const wy=oy+10*s; rect(wx, wy, 6*s, 6*s, '#FFF'); rect(wx+1*s, wy+1*s, 4*s, 4*s, cWindow);
+                rect(wx+2.5*s, wy+1*s, 1*s, 4*s, '#FFF'); rect(wx+1*s, wy+2.5*s, 4*s, 1*s, '#FFF');
+                rect(wx-2*s, wy, 2*s, 6*s, cShutter); rect(wx-2*s, wy+1*s, 2*s, 1*s, cShutterDark); rect(wx-2*s, wy+3*s, 2*s, 1*s, cShutterDark);
+                rect(wx+6*s, wy, 2*s, 6*s, cShutter); rect(wx+6*s, wy+1*s, 2*s, 1*s, cShutterDark); rect(wx+6*s, wy+3*s, 2*s, 1*s, cShutterDark);
+                rect(wx-1*s, wy+6*s, 8*s, 1*s, '#555');
             }
             
             if (type === 'blog') {
-                rect(ox+6, oy+2, 20*s, 28*s, '#FFF');
-                rect(ox+6, oy+2, 20*s, 28*s, 'rgba(0,0,0,0.1)');
-                for(let i=10; i<26; i+=3) rect(ox+8, oy+i, 16*s, 1*s, '#444');
+                s = 1.4; ox = 8; oy = 8;
+                const cPaper='#FFFFFF'; const cPaperShade='#CCCCCC'; const cLines='#AAAAAA';
+                const cSkin='#FFCFA3'; const cSkinShade='#E0A878'; const cSleeve='#102050'; 
+                const cPen='#333333'; const cShadow='rgba(0,0,0,0.3)';
+                const pcx=ox+16*s; const pcy=oy+18*s; const pr=14*s;
+
+                ctx.fillStyle=cShadow; ctx.beginPath(); ctx.moveTo(pcx, pcy+pr+2*s); ctx.lineTo(pcx+pr+2*s, pcy+2*s); ctx.lineTo(pcx, pcy-pr+4*s);
+                ctx.lineTo(ox+38*s, oy+20*s); ctx.lineTo(ox+38*s, oy+34*s); ctx.lineTo(pcx, pcy+pr+2*s); ctx.fill();
+                ctx.fillStyle=cPaper; ctx.beginPath(); ctx.moveTo(pcx, pcy-pr); ctx.lineTo(pcx+pr, pcy); ctx.lineTo(pcx, pcy+pr); ctx.lineTo(pcx-pr, pcy); ctx.fill();
+                ctx.lineWidth=2*s; ctx.strokeStyle=cPaperShade; ctx.beginPath(); ctx.moveTo(pcx+pr, pcy); ctx.lineTo(pcx, pcy+pr); ctx.stroke();
+                ctx.fillStyle=cLines; rect(pcx-6*s, pcy-5*s, 12*s, 1*s, cLines); rect(pcx-10*s, pcy, 20*s, 1*s, cLines); rect(pcx-8*s, pcy+5*s, 16*s, 1*s, cLines);
+                ctx.lineWidth=3*s; ctx.strokeStyle=cPen; ctx.beginPath(); ctx.moveTo(ox+36*s, oy+14*s); ctx.lineTo(pcx+2*s, pcy+2*s); ctx.stroke();
+                rect(pcx+1*s, pcy+1*s, 2*s, 2*s, '#000');
+                rect(ox+30*s, oy+20*s, 10*s, 12*s, cSleeve);
+                rect(ox+24*s, oy+22*s, 8*s, 10*s, cSkin); rect(ox+22*s, oy+22*s, 6*s, 3*s, cSkin); rect(ox+23*s, oy+26*s, 5*s, 3*s, cSkin); rect(ox+26*s, oy+30*s, 6*s, 4*s, cSkin);
+                rect(ox+28*s, oy+22*s, 2*s, 10*s, cSkinShade); rect(ox+22*s, oy+25*s, 6*s, 1*s, cSkinShade);
             }
 
             if (type === 'projects') {
-                rect(ox+2, oy+10, 28*s, 18*s, '#Eebb66');
-                rect(ox+2, oy+6, 10*s, 4*s, '#DDAA55');
+                s = 1.4; 
+                ox = 10; 
+                // [MODIFIED] Increased OY to 18 to lower the icon in the frame
+                oy = 23;
+
+                const cLeather = '#8D6E63'; const cLeatherDark = '#5D4037'; const cLeatherLight = '#A1887F';
+                const cGold = '#FFC107'; const cShadow = 'rgba(0,0,0,0.3)'; const skewY = -4 * s; 
+
+                ctx.fillStyle = cShadow; ctx.beginPath(); ctx.moveTo(ox+4*s, oy+24*s); ctx.lineTo(ox+32*s, oy+24*s+skewY); ctx.lineTo(ox+36*s, oy+24*s); ctx.lineTo(ox+8*s, oy+28*s); ctx.fill();
+                ctx.fillStyle = cLeatherDark; ctx.beginPath(); ctx.moveTo(ox+30*s, oy+skewY); ctx.lineTo(ox+34*s, oy+skewY+2*s); ctx.lineTo(ox+34*s, oy+24*s+skewY+2*s); ctx.lineTo(ox+30*s, oy+24*s+skewY); ctx.fill();
+                ctx.fillStyle = cLeather; ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox+30*s, oy+skewY); ctx.lineTo(ox+30*s, oy+24*s+skewY); ctx.lineTo(ox, oy+24*s); ctx.fill();
+                ctx.lineWidth = 2*s; ctx.strokeStyle = '#3E2723'; ctx.lineCap = 'round'; ctx.beginPath();
+                const midX = ox+15*s; const midY = oy+skewY/2;
+                ctx.moveTo(midX-4*s, midY); ctx.bezierCurveTo(midX-4*s, midY-6*s, midX+4*s, midY-8*s, midX+4*s, midY+skewY*0.2); ctx.stroke();
+                ctx.fillStyle = cLeatherLight; ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox+30*s, oy+skewY); ctx.lineTo(ox+30*s, oy+12*s+skewY); ctx.quadraticCurveTo(ox+15*s, oy+16*s+skewY/2, ox, oy+12*s); ctx.fill();
+                ctx.strokeStyle = 'rgba(255,255,255,0.3)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(ox+2*s, oy+2*s); ctx.lineTo(ox+28*s, oy+2*s+skewY); ctx.stroke();
+                ctx.fillStyle = cGold; const bX = ox+15*s-1.5*s; const bY = oy+11*s+skewY/2; ctx.fillRect(bX, bY, 3*s, 4*s);
+                ctx.fillStyle = 'white'; ctx.fillRect(bX, bY, 1*s, 1*s);
             }
 
             if (type === 'posts') {
@@ -66,23 +107,21 @@
 
             if (type === 'contact' || type === 'mail') {
                 rect(ox+2, oy+8, 28*s, 18*s, '#EEE');
-                // Flap
-                ctx.beginPath(); ctx.moveTo(ox+2, oy+8); 
-                ctx.lineTo(ox+16*s, oy+20*s); ctx.lineTo(ox+30*s, oy+8);
+                ctx.beginPath(); ctx.moveTo(ox+2, oy+8); ctx.lineTo(ox+16*s, oy+20*s); ctx.lineTo(ox+30*s, oy+8);
                 ctx.strokeStyle='#888'; ctx.stroke();
             }
 
             if (type === 'nav') {
-                // Map Pin
-                ctx.beginPath();
-                ctx.arc(ox+16*s, oy+12*s, 10*s, 0, Math.PI*2);
-                ctx.fillStyle = '#D22'; ctx.fill();
-                ctx.beginPath(); ctx.moveTo(ox+16*s, oy+12*s);
-                ctx.lineTo(ox+16*s, oy+30*s);
-                ctx.strokeStyle = '#DDD'; ctx.lineWidth=3; ctx.stroke();
+                ctx.beginPath(); ctx.arc(ox+16*s, oy+12*s, 10*s, 0, Math.PI*2); ctx.fillStyle = '#D22'; ctx.fill();
+                ctx.beginPath(); ctx.moveTo(ox+16*s, oy+12*s); ctx.lineTo(ox+16*s, oy+30*s); ctx.strokeStyle = '#DDD'; ctx.lineWidth=3; ctx.stroke();
             }
 
-            // Download
+            if (type === 'socials') {
+                ctx.fillStyle = '#77DD77'; ctx.beginPath(); ctx.arc(ox+12*s, oy+14*s, 7*s, 0, Math.PI*2); ctx.fill(); ctx.beginPath(); ctx.arc(ox+12*s, oy+28*s, 9*s, Math.PI, 0); ctx.fill(); 
+                ctx.fillStyle = '#66CCFF'; ctx.beginPath(); ctx.arc(ox+22*s, oy+18*s, 8*s, 0, Math.PI*2); ctx.fill(); ctx.beginPath(); ctx.arc(ox+22*s, oy+34*s, 11*s, Math.PI, 0); ctx.fill(); 
+                ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.beginPath(); ctx.arc(ox+20*s, oy+16*s, 3*s, 0, Math.PI*2); ctx.fill(); ctx.beginPath(); ctx.arc(ox+10*s, oy+12*s, 3*s, 0, Math.PI*2); ctx.fill();
+            }
+
             const link = document.createElement('a');
             link.download = type + '.png';
             link.href = canvas.toDataURL();
@@ -91,4 +130,3 @@
     </script>
 </body>
 </html>
-

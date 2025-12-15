@@ -56,8 +56,8 @@
                     </svg>
                 </div>
                 <div class="dropdown bevel-out">
-                    <button onclick="app.openModal('Anish Teja\'s Website', 'Version 1.0\nCreated with vanilla HTML, CSS and JavaScript')">About</button>
-                    <button onclick="app.openModal('Credits', '@Copyleft All Wrongs Reserved: Anish Teja Bramhajosyula\nCo-created with Aravind Bramhajosyula')">Credits</button>
+                    <button onclick="app.openAbout()">About</button>
+                    <button onclick="app.openCredits()">Credits</button>
                 </div>
             </div>
 
@@ -79,7 +79,7 @@
                 <span class="label">Special</span>
                 <div class="dropdown bevel-out">
                     <button onclick="app.navigateTo('contact')">Contact</button>
-                    <button onclick="app.openModal('Socials', 'Twitter: @example<br>GitHub: @example')">Socials</button>
+                    <button onclick="app.navigateTo('socials')">Socials</button>
                     <div class="separator bevel-in"></div>
                     <button onclick="app.openModal('Dangerous', 'DISCLAIMER: Stay away! Only inflammatory and opinionated takes!')">Dangerous</button>
                 </div>
@@ -136,7 +136,7 @@
                 </button>
                 <button class="dock-icon" onclick="app.navigateTo('projects')" title="Projects">
                     <img src="assets/projects.png" alt="Projects">
-                    <span>Projs</span>
+                    <span>Projects</span>
                 </button>
                 <button class="dock-icon" onclick="app.navigateTo('posts')" title="Posts">
                     <img src="assets/posts.png" alt="Posts">
@@ -145,6 +145,10 @@
                 <button class="dock-icon" onclick="app.navigateTo('contact')" title="Contact">
                     <img src="assets/contact.png" alt="Contact">
                     <span>Mail</span>
+                </button>
+                <button class="dock-icon" onclick="app.navigateTo('socials')" title="Socials">
+                    <img src="assets/socials.png" alt="Socials">
+                    <span>Socials</span>
                 </button>
             </div>
             
