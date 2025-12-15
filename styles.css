@@ -421,10 +421,11 @@ body {
 
     /* 3. Window Centering & Spacing */
     .window {
-        width: 90% !important;   /* Reduced from 90% to 80% */
-        left: 5% !important;    /* Adjusted to center (100-80)/2 */
-        top: 60px !important;    /* Adjusted top margin */
-        height: 70% !important;  /* [MODIFIED] Reduced from 60% to 50% */
+        width: 90% !important;   /* [MODIFIED] Smaller width (from 90% to 80%) */
+        left: 5% !important;    /* [MODIFIED] Centered (100-80)/2 */
+        top: 60px !important;    
+        height: 70vh !important; /* [MODIFIED] Use VH for consistency */
+        height: 70dvh !important;/* [MODIFIED] Use DVH for Chromium mobile address bar fix */
         min-width: 0;
     }
 
