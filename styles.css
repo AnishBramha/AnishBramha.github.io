@@ -421,10 +421,10 @@ body {
 
     /* 3. Window Centering & Spacing */
     .window {
-        width: 90% !important;   /* Occupy 90% width */
-        left: 5% !important;     /* 5% left + 90% width + 5% right = Centered */
-        top: 50px !important;    /* Clear header */
-        height: calc(100% - 180px) !important; /* Reserve 180px at bottom for Dock to avoid clash */
+        width: 80% !important;   /* [MODIFIED] Reduced from 90% to 80% */
+        left: 10% !important;    /* [MODIFIED] Adjusted to center (100-80)/2 */
+        top: 60px !important;    /* [MODIFIED] Adjusted top margin */
+        height: 60% !important;  /* [MODIFIED] Reduced height to 60% of viewport */
         min-width: 0;
     }
 
