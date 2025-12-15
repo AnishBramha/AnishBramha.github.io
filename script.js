@@ -697,7 +697,7 @@ const app = {
     openAbout: () => {
         const content = `
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
-                <h3 style="margin: 0 0 10px 0;">Version 1.1</h3>
+                <h3 style="margin: 0 0 10px 0;">Version 1.2</h3>
                 <p style="margin: 0 0 20px 0;">Created with vanilla HTML, CSS and JavaScript ♥</p>
                 <div style="display: flex; gap: 15px; margin-bottom: 25px;">
                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="40" height="40" alt="HTML5" title="HTML5">
