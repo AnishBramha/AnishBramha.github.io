@@ -421,10 +421,10 @@ body {
 
     /* 3. Window Centering & Spacing */
     .window {
-        width: 80% !important;   /* Reduced from 90% to 80% */
-        left: 10% !important;    /* Adjusted to center (100-80)/2 */
+        width: 90% !important;   /* Reduced from 90% to 80% */
+        left: 5% !important;    /* Adjusted to center (100-80)/2 */
         top: 60px !important;    /* Adjusted top margin */
-        height: 50% !important;  /* [MODIFIED] Reduced from 60% to 50% */
+        height: 70% !important;  /* [MODIFIED] Reduced from 60% to 50% */
         min-width: 0;
     }
 
