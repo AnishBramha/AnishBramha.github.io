@@ -421,10 +421,10 @@ body {
 
     /* 3. Window Centering & Spacing */
     .window {
-        width: 80% !important;   /* [MODIFIED] Reduced from 90% to 80% */
-        left: 10% !important;    /* [MODIFIED] Adjusted to center (100-80)/2 */
-        top: 60px !important;    /* [MODIFIED] Adjusted top margin */
-        height: 60% !important;  /* [MODIFIED] Reduced height to 60% of viewport */
+        width: 80% !important;   /* Reduced from 90% to 80% */
+        left: 10% !important;    /* Adjusted to center (100-80)/2 */
+        top: 60px !important;    /* Adjusted top margin */
+        height: 50% !important;  /* [MODIFIED] Reduced from 60% to 50% */
         min-width: 0;
     }
 
@@ -460,7 +460,7 @@ body {
     }
 }
 
-/* [MODIFIED] Apple Garamond Lookalike Class */
+/* Apple Garamond Lookalike Class */
 .apple-lookalike {
   font-family: 'EB Garamond', serif;
   /* Transform to mimic the condensed look of Apple Garamond */
