@@ -359,16 +359,57 @@ const pages = {
     },
     'contact': { 
         title: 'Mailbox', 
-        content: `<h2>Send Message</h2><p>To: Anish</p><p>From: Guest</p>` 
+        content: `
+            <div style="display: flex; flex-direction: column; height: 100%;">
+                <h3 style="margin: 0 0 15px 0;">Send Message</h3>
+
+                <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                    <b>To</b>&emsp;&emsp;
+                    <a href="mailto:anish.bramhajosyula@protonmail.com" style="text-decoration: none; display: flex;">
+                        <img src="https://img.shields.io/badge/anish.bramhajosyula@protonmail.com-8A2BE2?logo=protonmail&logoColor=white" alt="Email Badge">
+                    </a>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
+                    <label for="c-from" style="min-width: 60px;"><b>From</b></label>
+                    <input type="email" id="c-from" style="flex-grow: 1; padding: 4px; border: 2px inset #eee; font-family: inherit; font-size: 18px;">
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
+                    <label for="c-sub" style="min-width: 60px;"><b>Subject</b></label>
+                    <input type="text" id="c-sub" style="flex-grow: 1; padding: 4px; border: 2px inset #eee; font-family: inherit; font-size: 18px;">
+                </div>
+                
+                <textarea id="c-body" style="flex-grow: 1; width: 100%; padding: 8px; border: 2px inset #eee; resize: none; font-family: inherit; font-size: 18px; margin-bottom: 10px;"></textarea>
+                
+                <div style="align-self: flex-end;">
+                    <button onclick="app.sendEmail()" style="padding: 6px 12px; border: 2px outset #eee; background: #ccc; cursor: pointer; font-family: inherit;"><b>SEND</b></button>
+                </div>
+            </div>
+        ` 
     },
+    // [MODIFIED] Socials page updated: Adjusted LinkedIn badge URL to force logo display
     'socials': {
         title: 'Socials',
         content: `
-            <h2>Connect with Me</h2>
-            <div style="display:flex; flex-direction:column; gap:10px; align-items:center; margin-top:20px;">
-                <a href="#" style="font-size:18px;">Twitter / X</a>
-                <a href="#" style="font-size:18px;">GitHub</a>
-                <a href="#" style="font-size:18px;">LinkedIn</a>
+            <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; font-size: 1.1em; text-align: center">
+                <h3 style="margin: 0 0 20px 0;">Connect with Me</h3>
+                
+                <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: center;">
+                    
+                    <a href="https://github.com/AnishBramha" target="_blank" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
+                        <img src="https://img.shields.io/badge/GitHub-grey?logo=github&amp;logoColor=white" alt="GitHub Badge">
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/anish-teja-bramhajosyula-02aa81320/" target="_blank" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
+                        <img src="https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white&style=flat" alt="LinkedIn Badge">
+                    </a>
+
+                    <a href="mailto:anish.bramhajosyula@protonmail.com" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
+                        <img src="https://img.shields.io/badge/Email-8A2BE2?logo=protonmail&amp;logoColor=white" alt="Email Badge">
+                    </a>
+
+                </div>
             </div>
         `
     },
@@ -565,6 +606,15 @@ const app = {
                 w = 800; 
                 h = 550; 
             }
+            else if (pageId === 'contact') {
+                w = 720;
+                h = 520;
+            }
+            // [MODIFIED] Set small and tight size for Socials
+            else if (pageId === 'socials') {
+                w = 300;
+                h = 200;
+            }
 
             win.style.width = `${w}px`;
             win.style.height = `${h}px`;
@@ -687,12 +737,75 @@ const app = {
         app.openModal("Credits", content, 338, 338);
     },
 
-    // [MODIFIED] Updated openModal signature to accept width and height (w, h)
+    // [MODIFIED] Added sendEmail function for the contact form with Formspree
+    sendEmail: () => {
+        const from = document.getElementById("c-from").value;
+        const subject = document.getElementById("c-sub").value;
+        const body = document.getElementById("c-body").value;
+        
+        // Basic validation
+        if (!from || !body) {
+            alert("Please enter your email and a message.");
+            return;
+        }
+
+        // Visual feedback
+        const btn = document.querySelector("#window-content button");
+        const originalText = btn.textContent;
+        btn.textContent = "Sending...";
+        btn.disabled = true;
+
+        // [IMPORTANT] REPLACE THIS WITH YOUR FORMSPREE ENDPOINT
+        const endpoint = "https://formspree.io/f/PLACE_YOUR_FORMSPREE_ID_HERE";
+
+        fetch(endpoint, {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: from,
+                subject: subject,
+                message: body
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Message sent successfully!");
+                // Clear the form
+                document.getElementById("c-from").value = "";
+                document.getElementById("c-sub").value = "";
+                document.getElementById("c-body").value = "";
+                // [MODIFIED] Removed app.navigateTo('home') to keep window open
+            } else {
+                return response.json().then(data => {
+                    if (Object.hasOwn(data, 'errors')) {
+                        alert(data["errors"].map(error => error["message"]).join(", "));
+                    } else {
+                        alert("Oops! There was a problem sending your message.");
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            alert("Error: Could not send message. Check your internet connection.");
+        })
+        .finally(() => {
+            if(btn) {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        });
+    },
+
+    // [MODIFIED] Updated openModal to NOT replace \n with <br> to fix layout issues
     openModal: (title, text, w = 640, h = 440) => {
         const win = document.getElementById('window-frame');
         
         document.getElementById('win-title').textContent = title;
-        document.getElementById('window-content').innerHTML = text.replace(/\n/g, '<br>');
+        // [FIX] Removed .replace(/\n/g, '<br>') because it breaks complex HTML layouts
+        document.getElementById('window-content').innerHTML = text; 
         document.getElementById('window-content').style.overflow = 'auto'; 
         
         // [MODIFIED] Width and Height are now dynamic based on arguments

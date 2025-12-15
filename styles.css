@@ -468,5 +468,8 @@ body {
   transform: scaleX(0.8); 
   transform-origin: left;
   /* Optional: Ensure it looks good if used in headings */
-  font-weight: 400; 
+  font-weight: 400;
 }
+
+
+
