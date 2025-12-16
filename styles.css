@@ -155,7 +155,8 @@ body {
     top: 50px; right: 20px;
     display: flex; flex-direction: column;
     gap: 20px;
-    z-index: 50;
+    /* [MODIFIED] Lowered z-index so windows can pass over */
+    z-index: 10;
     align-items: center;
 }
 
@@ -197,6 +198,8 @@ body {
   padding: 4px;
   transition: opacity 0.2s;
   box-shadow: 10px 10px 0 rgba(0,0,0,0.2);
+  /* [MODIFIED] Added z-index higher than icons (10) */
+  z-index: 20;
 }
 
 .window.hidden {

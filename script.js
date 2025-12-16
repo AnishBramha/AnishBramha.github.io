@@ -365,26 +365,26 @@ const pages = {
                 <h3 class="contact-header">Send Message</h3>
                 
                 <div class="contact-to-row">
-                    <span>To:</span>
+                    <span><b>To</b>:</span>&emsp;&ensp;
                     <a href="mailto:anish.bramhajosyula@protonmail.com" style="text-decoration: none; display: flex;">
                         <img src="https://img.shields.io/badge/anish.bramhajosyula@protonmail.com-8A2BE2?logo=protonmail&logoColor=white" alt="Email Badge">
                     </a>
                 </div>
                 
                 <div class="contact-row">
-                    <label for="c-from" class="contact-label">From:</label>
+                    <label for="c-from" class="contact-label"><b>From</b>:</label>
                     <input type="email" id="c-from" class="contact-input">
                 </div>
                 
                 <div class="contact-row">
-                    <label for="c-sub" class="contact-label">Subject:</label>
+                    <label for="c-sub" class="contact-label"><b>Subject</b>:</label>
                     <input type="text" id="c-sub" class="contact-input">
                 </div>
                 
                 <textarea id="c-body" class="contact-textarea"></textarea>
                 
                 <div class="contact-footer">
-                    <button onclick="app.sendEmail()" class="contact-btn">Send</button>
+                    <button onclick="app.sendEmail()" class="contact-btn"><b>SEND</b></button>
                 </div>
             </div>
         ` 
