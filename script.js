@@ -357,48 +357,48 @@ const pages = {
         title: 'Netscape Feed', 
         content: `<h2>Social Feed</h2><p>No new messages.</p>` 
     },
+    // [MODIFIED] Replaced inline styles with CSS classes for responsive behavior
     'contact': { 
         title: 'Mailbox', 
         content: `
-            <div style="display: flex; flex-direction: column; height: 100%;">
-                <h3 style="margin: 0 0 15px 0;">Send Message</h3>
-
-                <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
-                    <b>To</b>&emsp;&emsp;
+            <div class="contact-container">
+                <h3 class="contact-header">Send Message</h3>
+                
+                <div class="contact-to-row">
+                    <span>To:</span>
                     <a href="mailto:anish.bramhajosyula@protonmail.com" style="text-decoration: none; display: flex;">
                         <img src="https://img.shields.io/badge/anish.bramhajosyula@protonmail.com-8A2BE2?logo=protonmail&logoColor=white" alt="Email Badge">
                     </a>
                 </div>
                 
-                <div style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
-                    <label for="c-from" style="min-width: 60px;"><b>From</b></label>
-                    <input type="email" id="c-from" style="flex-grow: 1; padding: 4px; border: 2px inset #eee; font-family: inherit; font-size: 18px;">
+                <div class="contact-row">
+                    <label for="c-from" class="contact-label">From:</label>
+                    <input type="email" id="c-from" class="contact-input">
                 </div>
                 
-                <div style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
-                    <label for="c-sub" style="min-width: 60px;"><b>Subject</b></label>
-                    <input type="text" id="c-sub" style="flex-grow: 1; padding: 4px; border: 2px inset #eee; font-family: inherit; font-size: 18px;">
+                <div class="contact-row">
+                    <label for="c-sub" class="contact-label">Subject:</label>
+                    <input type="text" id="c-sub" class="contact-input">
                 </div>
                 
-                <textarea id="c-body" style="flex-grow: 1; width: 100%; padding: 8px; border: 2px inset #eee; resize: none; font-family: inherit; font-size: 18px; margin-bottom: 10px;"></textarea>
+                <textarea id="c-body" class="contact-textarea"></textarea>
                 
-                <div style="align-self: flex-end;">
-                    <button onclick="app.sendEmail()" style="padding: 6px 12px; border: 2px outset #eee; background: #ccc; cursor: pointer; font-family: inherit;"><b>SEND</b></button>
+                <div class="contact-footer">
+                    <button onclick="app.sendEmail()" class="contact-btn">Send</button>
                 </div>
             </div>
         ` 
     },
-    // [MODIFIED] Socials page updated: Adjusted LinkedIn badge URL to force logo display
     'socials': {
         title: 'Socials',
         content: `
-            <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; font-size: 1.1em; text-align: center">
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; font-size: 1.1em; text-align: center">
                 <h3 style="margin: 0 0 20px 0;">Connect with Me</h3>
                 
-                <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: center;">
+                <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap;">
                     
                     <a href="https://github.com/AnishBramha" target="_blank" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
-                        <img src="https://img.shields.io/badge/GitHub-grey?logo=github&amp;logoColor=white" alt="GitHub Badge">
+                        <img src="https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white" alt="GitHub Badge">
                     </a>
 
                     <a href="https://www.linkedin.com/in/anish-teja-bramhajosyula-02aa81320/" target="_blank" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
@@ -406,7 +406,7 @@ const pages = {
                     </a>
 
                     <a href="mailto:anish.bramhajosyula@protonmail.com" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
-                        <img src="https://img.shields.io/badge/Email-8A2BE2?logo=protonmail&amp;logoColor=white" alt="Email Badge">
+                        <img src="https://img.shields.io/badge/Email-8A2BE2?logo=protonmail&logoColor=white" alt="Email Badge">
                     </a>
 
                 </div>
@@ -612,8 +612,8 @@ const app = {
             }
             // [MODIFIED] Set small and tight size for Socials
             else if (pageId === 'socials') {
-                w = 300;
-                h = 200;
+                w = 500;
+                h = 320;
             }
 
             win.style.width = `${w}px`;
@@ -697,7 +697,7 @@ const app = {
     openAbout: () => {
         const content = `
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
-                <h3 style="margin: 0 0 10px 0;">Version 1.2</h3>
+                <h3 style="margin: 0 0 10px 0;">Version 1.1</h3>
                 <p style="margin: 0 0 20px 0;">Created with vanilla HTML, CSS and JavaScript ♥</p>
                 <div style="display: flex; gap: 15px; margin-bottom: 25px;">
                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="40" height="40" alt="HTML5" title="HTML5">

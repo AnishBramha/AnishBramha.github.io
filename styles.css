@@ -278,6 +278,12 @@ body {
 }
 .window-content a { color: var(--sys-purple); cursor: pointer; text-decoration: underline; }
 
+/* [MODIFIED] Ensure badges/images scale down on mobile */
+.window-content img {
+    max-width: 100%;
+    height: auto;
+}
+
 .window-footer {
   height: 20px;
   display: flex;
@@ -397,6 +403,35 @@ body {
   z-index: 9999;
 }
 
+/* --- CONTACT FORM STYLES --- */
+.contact-container {
+    display: flex; flex-direction: column; height: 100%;
+}
+.contact-header {
+    margin: 0 0 15px 0;
+}
+.contact-to-row {
+    margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+}
+.contact-row {
+    display: flex; gap: 10px; margin-bottom: 10px; align-items: center;
+}
+.contact-label {
+    min-width: 60px;
+}
+.contact-input {
+    flex-grow: 1; padding: 4px; border: 2px inset #eee; font-family: inherit; font-size: 18px;
+}
+.contact-textarea {
+    flex-grow: 1; width: 100%; padding: 8px; border: 2px inset #eee; resize: none; font-family: inherit; font-size: 18px; margin-bottom: 10px;
+}
+.contact-footer {
+    align-self: flex-end;
+}
+.contact-btn {
+    padding: 6px 12px; border: 2px outset #eee; background: #ccc; cursor: pointer; font-family: inherit;
+}
+
 /* --- MOBILE & TABLET RESPONSIVENESS --- */
 @media (max-width: 768px) {
     /* 1. Remove Desktop Icons */
@@ -459,6 +494,20 @@ body {
     .dock-icon img {
         width: 28px; height: 28px;
     }
+
+    /* 5. Contact Form Mobile Adjustments */
+    .contact-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2px;
+    }
+    .contact-to-row {
+        flex-wrap: wrap; /* Allows badge to wrap to next line if screen is narrow */
+    }
+    .contact-label {
+        min-width: auto;
+        margin-bottom: 2px;
+    }
 }
 
 /* Apple Garamond Lookalike Class */
@@ -468,8 +517,5 @@ body {
   transform: scaleX(0.8); 
   transform-origin: left;
   /* Optional: Ensure it looks good if used in headings */
-  font-weight: 400;
+  font-weight: 400; 
 }
-
-
-
