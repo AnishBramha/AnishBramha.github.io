@@ -2,84 +2,12 @@ const state = {
     page: 'home',
     dockOpen: false,
     bgIndex: 6,
-    isResizing: false
-    // Dragging state removed
+    isResizing: false,
+    blogCache: {}
 };
 
 // Background colors to cycle through
 const backgrounds = ['#708090', '#5F9EA0', '#4682B4', '#556B2F', '#8B4513', '#483D8B', '#B8860B'];
-
-// Blog Data
-const blogEntries = [
-    {
-        id: 'post-1',
-        title: 'The Unreasonable Effectiveness of Mathematics',
-        date: '2023-11-10',
-        content: `<p>Why does math describe the universe so well? It is a mystery that has puzzled philosophers for centuries. From the Fibonacci sequence in flowers to the calculus describing planetary motion, the link is undeniable.</p>`
-    },
-    {
-        id: 'post-2',
-        title: 'Parsing Natural Language with Python',
-        date: '2023-11-25',
-        content: `<p>Using NLTK to break down sentence structures is easier than you think. Let's explore dependency grammars and how computers "understand" the relationship between words in a sentence.</p>`
-    },
-    {
-        id: 'post-3',
-        title: 'Understanding The Glottal Stop',
-        date: '2023-12-05',
-        content: `<p>The glottal stop is that sound you make in the middle of "uh-oh". In the International Phonetic Alphabet (IPA), it is represented as ʔ. It is a full-fledged consonant in many languages!</p>`
-    },
-    {
-        id: 'post-4',
-        title: 'The Magic of Regular Expressions',
-        date: '2023-12-15',
-        content: `
-            <p>Regular expressions (regex) are more than just a search tool; they are a direct application of Finite Automata theory. Every regex pattern compiles down to a state machine that processes text character by character.</p>
-            <p>While they can't parse HTML (because HTML is not a regular language—don't try it!), they are incredibly powerful for pattern matching, validation, and lexical analysis in compilers.</p>
-            <p>The beauty lies in their conciseness. A single line of regex can replace dozens of lines of conditional logic, effectively describing an entire set of valid strings in a compact mathematical notation.</p>
-        `
-    },
-    {
-        id: 'post-5',
-        title: 'Lambda Calculus: The Ultimate Abstraction',
-        date: '2024-01-02',
-        content: `
-            <p>Before Turing machines, there was Lambda Calculus. Invented by Alonzo Church in the 1930s, it is a formal system in mathematical logic for expressing computation based on function abstraction and application.</p>
-            <p>In this system, everything is a function. Numbers are functions, booleans are functions, and even operators are functions. It forms the theoretical basis of all functional programming languages like Haskell and Lisp.</p>
-            <p>It teaches us that you don't need state or mutable variables to compute anything computable—you just need the ability to define and apply functions.</p>
-        `
-    },
-    {
-        id: 'post-6',
-        title: 'Vector Space Models of Semantics',
-        date: '2024-01-20',
-        content: `
-            <p>How do you teach a computer the meaning of a word? You turn it into a vector. Distributional semantics suggests that "a word is characterized by the company it keeps."</p>
-            <p>By training algorithms like Word2Vec on massive corpora, we map words to high-dimensional geometric spaces. In this space, the concept of "King" minus "Man" plus "Woman" results in a vector suspiciously close to "Queen".</p>
-            <p>This geometric representation allows us to perform mathematical operations on concepts, bridging the gap between discrete symbols and continuous meaning.</p>
-        `
-    },
-    {
-        id: 'post-7',
-        title: 'P vs NP: The Million Dollar Question',
-        date: '2024-02-14',
-        content: `
-            <p>It is the biggest open problem in computer science. If a problem is easy to check (NP), is it also easy to solve (P)? Most experts believe P ≠ NP, but no one has proven it.</p>
-            <p>The implications are staggering. If P = NP, then cryptography as we know it collapses, optimization problems become trivial, and mathematical proofs could be generated automatically.</p>
-            <p>For now, we live in a world where finding a solution is hard, but verifying it is easy—a fact that keeps our passwords secure and our bank accounts safe.</p>
-        `
-    },
-    {
-        id: 'post-8',
-        title: 'Zipf\'s Law in Natural Language',
-        date: '2024-03-01',
-        content: `
-            <p>Take any large book. Count the frequency of every word. Rank them. You will find a startling pattern: the frequency of any word is inversely proportional to its rank.</p>
-            <p>The most common word ("the") appears twice as often as the second most common ("of"), and three times as often as the third ("and"). This is Zipf's Law.</p>
-            <p>This power-law distribution appears in city populations, solar flare intensities, and web traffic, suggesting a deep, underlying mathematical structure to human communication and complex systems.</p>
-        `
-    }
-];
 
 const pages = {
     'home': { 
@@ -505,10 +433,26 @@ const app = {
         document.head.appendChild(style);
     },
 
-    setupBlog: () => {
-        const sortedEntries = [...blogEntries].sort((a,b) => new Date(b.date) - new Date(a.date));
+    // --- NEW BLOG SYSTEM ---
 
-        // [MODIFIED] Updated Blog Header
+    // 1. Fetch the list of posts from the JSON file
+    setupBlog: () => {
+        fetch('blog/index.json')
+            .then(response => response.json())
+            .then(posts => {
+                app.renderBlogIndex(posts);
+            })
+            .catch(err => {
+                console.error("Could not load blog index:", err);
+                pages['blog'].content = "<p>Error loading blog index. System failure.</p>";
+            });
+    },
+
+    // 2. Render the "Landing Page" (List of all posts)
+    renderBlogIndex: (posts) => {
+        // Sort by date (newest first)
+        const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
         let landingHTML = `
             <div style="margin-bottom: 30px;">
                 <h1 style="margin: 0 0 10px 0; font-size: 1.5em;">The Glottal Stop Blog</h1>
@@ -516,50 +460,72 @@ const app = {
             </div>
             <ul>
         `;
-        
-        sortedEntries.forEach(post => {
-            // [MODIFIED] Added text-decoration: none
-            landingHTML += `<li><a style="text-decoration: none;" onclick="app.navigateTo('${post.id}')">${post.title}</a></li>`;
+
+        sortedPosts.forEach(post => {
+            // We register the page in our system now so navigation works later
+            if (!pages[post.id]) {
+                pages[post.id] = {
+                    title: 'Blog - ' + post.title,
+                    content: '<div style="text-align:center; padding-top:50px;">Loading data from disk...</div>', // Placeholder
+                    isBlogPost: true, // Flag to identify it later
+                    file: post.file   // Store the filename
+                };
+            }
+            landingHTML += `<li><a style="text-decoration: none;" onclick="app.navigateTo('${post.id}')">${post.title}</a> <span style="font-size:0.8em; color:#666">(${post.date})</span></li>`;
         });
         landingHTML += '</ul>';
-
+        
+        // Update the main blog page content
         pages['blog'].content = landingHTML;
+        
+        // Refresh window if user is currently looking at the blog index
+        if (state.page === 'blog') {
+            const winContent = document.getElementById('window-content');
+            if(winContent) winContent.innerHTML = landingHTML;
+        }
+    },
 
-        const chronoEntries = [...blogEntries].sort((a,b) => new Date(a.date) - new Date(b.date));
+    // 3. The "File Reader" - Fetches markdown content on demand
+    loadBlogPost: (pageId) => {
+        const pageData = pages[pageId];
+        
+        // If we already have the content in memory, don't fetch again
+        if (state.blogCache[pageId]) {
+            document.getElementById('window-content').innerHTML = state.blogCache[pageId];
+            return;
+        }
 
-        chronoEntries.forEach((post, index) => {
-            const prevPost = index > 0 ? chronoEntries[index - 1] : null; 
-            const nextPost = index < chronoEntries.length - 1 ? chronoEntries[index + 1] : null; 
+        // Otherwise, fetch the file
+        fetch(`blog/${pageData.file}`)
+            .then(res => {
+                if (!res.ok) throw new Error('File not found');
+                return res.text();
+            })
+            .then(markdown => {
+                // Convert Markdown to HTML using the library we added
+                const htmlContent = marked.parse(markdown);
+                
+                // Add your "Navigation Header" (Previous/Next/All) here if you want it back
+                const finalHTML = `
+                    <div style="margin-bottom: 20px;">
+                        <a style="text-decoration: none;" onclick="app.navigateTo('blog')">← Back to Index</a>
+                    </div>
+                    <div class="markdown-body">
+                        ${htmlContent}
+                    </div>
+                `;
 
-            let navHTML = '<div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; font-size: 0.9em; border-bottom: 1px solid #ccc; padding-bottom: 10px;">';
-
-            if (prevPost) {
-                // [MODIFIED] Added text-decoration: none
-                navHTML += `<a style="text-decoration: none;" onclick="app.navigateTo('${prevPost.id}')">← Previous entry</a>`;
-            } else {
-                navHTML += `<span style="color:#999">← Previous entry</span>`;
-            }
-
-            // [MODIFIED] Added text-decoration: none
-            navHTML += `<a style="text-decoration: none;" onclick="app.navigateTo('blog')">All entries</a>`;
-
-            if (nextPost) {
-                // [MODIFIED] Added text-decoration: none
-                navHTML += `<a style="text-decoration: none;" onclick="app.navigateTo('${nextPost.id}')">Next entry →</a>`;
-            } else {
-                navHTML += `<span style="color:#999">Next entry →</span>`;
-            }
-            navHTML += '</div>';
-
-            let postContent = navHTML;
-            postContent += `<div style="margin-bottom: 15px;"><b><span style="font-size: 1.2em;">${post.title}</span></b></div>`;
-            postContent += post.content;
-
-            pages[post.id] = {
-                title: 'Blog - ' + post.title, 
-                content: postContent
-            };
-        });
+                // Save to cache and update screen
+                state.blogCache[pageId] = finalHTML;
+                
+                // Only update if the user hasn't navigated away while loading
+                if (state.page === pageId) {
+                    document.getElementById('window-content').innerHTML = finalHTML;
+                }
+            })
+            .catch(err => {
+                document.getElementById('window-content').innerHTML = "<p>Error: Data corruption. File could not be read.</p>";
+            });
     },
 
     updateClock: () => {
@@ -592,8 +558,12 @@ const app = {
         
         document.getElementById('win-title').textContent = pages[pageId].title;
         document.getElementById('window-content').innerHTML = pages[pageId].content;
-        
         document.getElementById('window-content').style.overflow = 'auto';
+
+        // If this is a blog post, fetch the real content now
+        if (pages[pageId].isBlogPost) {
+            app.loadBlogPost(pageId);
+        }
 
         if (preserveWindow) {
             win.classList.remove('hidden');
