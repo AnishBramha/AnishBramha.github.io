@@ -445,7 +445,7 @@ const app = {
                 <div class="post-unit">
                     <div class="post-header-row">
                         <span class="post-title-small">${p.title}</span>
-                        <a class="read-more-link" onclick="app.navigateTo('${p.id}')">Read More ⎋</a>
+                        <a class="read-more-link" style="text-decoration: none;" onclick="app.navigateTo('${p.id}')">Read More ⎋</a>
                     </div>
                     <div class="post-description">
                         ${p.description}
@@ -474,23 +474,23 @@ const app = {
         const nextItem = indexList[idx - 1]; // Newer
         const prevItem = indexList[idx + 1]; // Older
         
-        const labelNext = type === 'blog' ? 'Next Entry' : 'Next Post';
-        const labelAll = type === 'blog' ? 'All Entries' : 'All Posts';
-        const labelPrev = type === 'blog' ? 'Previous Entry' : 'Previous Post';
+        const labelNext = type === 'blog' ? 'Next entry →' : 'Next post →';
+        const labelAll = type === 'blog' ? 'All entries' : 'All posts';
+        const labelPrev = type === 'blog' ? '← Previous entry' : '← Previous post';
         const rootPage = type === 'blog' ? 'blog' : 'posts';
 
         const prevHTML = prevItem 
-            ? `<a class="nav-item" onclick="app.navigateTo('${prevItem.id}')">${labelPrev}</a>`
-            : `<span class="nav-item disabled">${labelPrev}</span>`;
+            ? `<a class="nav-item" style="text-decoration: none;" onclick="app.navigateTo('${prevItem.id}')">${labelPrev}</a>`
+            : `<span class="nav-item disabled" style="text-decoration: none;">${labelPrev}</span>`;
             
         const nextHTML = nextItem 
-            ? `<a class="nav-item" onclick="app.navigateTo('${nextItem.id}')">${labelNext}</a>`
-            : `<span class="nav-item disabled">${labelNext}</span>`;
+            ? `<a class="nav-item" style="text-decoration: none;" onclick="app.navigateTo('${nextItem.id}')">${labelNext}</a>`
+            : `<span class="nav-item disabled" style="text-decoration: none;">${labelNext}</span>`;
 
         return `
             <div class="nav-bar">
                 ${prevHTML}
-                <a class="nav-item" onclick="app.navigateTo('${rootPage}')">${labelAll}</a>
+                <a class="nav-item" style="text-decoration: none;" onclick="app.navigateTo('${rootPage}')">${labelAll}</a>
                 ${nextHTML}
             </div>
             <div class="nav-separator"></div>
