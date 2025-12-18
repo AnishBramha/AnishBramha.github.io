@@ -608,6 +608,7 @@ const app = {
             let h = 440;
             const isBlogType = pageId === 'blog' || pageId.startsWith('post-');
 
+            // [MODIFIED] Ensure 'projects' uses the same size as blog (800x550)
             if (isBlogType || pageId === 'projects') {
                 w = 800; 
                 h = 550; 
