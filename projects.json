@@ -19,8 +19,17 @@
         "name": "ParcelTrack",
         "description": "Automatically manage parcels at the reception. Includes an interface for the security guards at the gate to log the incoming and outgoing package activity. Students can use MS Auth to login and check/return/pickup their own/trusted packages.",
         "link": "https://github.com/AnishBramha/Java_Sem3_Project"
+    },
+
+
+    {
+        "name": "The PRiL Text Editor",
+        "description": "A simple GUI-based text editor with universal file support. Built with the wxWidgets UI framework.",
+        "link": "https://github.com/AnishBramha/pril"
     }
 ]
+
+
 
 
 

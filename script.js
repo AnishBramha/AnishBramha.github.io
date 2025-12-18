@@ -529,8 +529,6 @@ const app = {
 
             return `
 
-                ${separator}
-
                 <div class="project-unit">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
                         <span style="font-size: 1.1em; font-weight: 600; width: 50%; word-wrap: break-word; line-height: 1.2;">
@@ -538,7 +536,7 @@ const app = {
                         </span>
                         
                         <a href="${p.link}" target="_blank" style="text-decoration: none; display: flex;">
-                            <img src="https://img.shields.io/badge/181717?logo=github&logoColor=white" alt="GitHub Badge">
+                            <img src="https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white" alt="GitHub Badge">
                         </a>
                     </div>
                     
@@ -546,6 +544,7 @@ const app = {
                         ${p.description}
                     </div>
                     
+                ${separator}
                 </div>
             `;
         }).join('');
