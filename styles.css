@@ -549,8 +549,9 @@ body {
     color: var(--sys-purple);
     text-decoration: none;
     cursor: pointer;
-    font-size: 0.9em;
-    white-space: nowrap;   /* Keep "Read More ⎋" together */
+    font-family: "EB Garamond", serif; /* [MODIFIED] Use Garamond */
+    font-size: 0.85em; /* [MODIFIED] Smaller font size */
+    white-space: nowrap;   
 }
 .read-more-link:hover {
     color: #483D8B; /* Slightly darker purple on hover */
@@ -569,8 +570,8 @@ body {
     flex-wrap: wrap; /* Wrap if run out of space */
     gap: 10px;
     margin-bottom: 10px;
-    font-family: var(--sys-font);
-    font-size: 0.9em;
+    font-family: "EB Garamond", serif; /* [MODIFIED] Use Garamond */
+    font-size: 0.85em; /* [MODIFIED] Smaller font size */
 }
 
 .nav-item {
@@ -594,10 +595,3 @@ body {
 
 /* Ensure headings in the post body look right */
 .post-body-content h1 { font-size: 1.5em; margin-top: 0; }
-
-
-
-
-
-
-
