@@ -1,20 +1,33 @@
 [
     {
         "name": "cscript",
-        "description": "A personal programming language implementation featuring a custom lexer, parser, and interpreter.",
+        "description": "A high-level, dynamic, interpreted, weakly-interpreted scripting language in the Lisp-1 family with an integrated REPL. Built using a bottom-up parser which constructs a metaprogrammed AST using the visitor pattern.",
         "link": "https://github.com/AnishBramha/cscript"
     },
+
+
+
+    {
+        "name": "Granthomukhim",
+        "description": "A context-free non-semantic word generator for my custom natural language (classified theoretically as aggultinative-fusional Indo-Aryan-Dravidian). Uses a parser set to the rules of a grammar represented via the Chomsky Normal Form (CNF). Follows a system of atomic roots modified to achieve nuanced meaning to form stems, which are further affixed to form words. Internal sandhi is also applied within the word.",
+        "link": "https://github.com/AnishBramha/Granthomukhim"
+    },
+
+
+
     {
         "name": "ParcelTrack",
-        "description": "A comprehensive parcel tracking system designed for students to manage incoming deliveries with real-time updates.",
-        "link": "https://github.com/AnishBramha/ParcelTrack"
-    },
-    {
-        "name": "Portfolio OS",
-        "description": "This website! A retro macOS 9 inspired personal site featuring a custom window manager and virtual file system.",
-        "link": "https://github.com/AnishBramha/AnishBramha.github.io"
+        "description": "Automatically manage parcels at the reception. Includes an interface for the security guards at the gate to log the incoming and outgoing package activity. Students can use MS Auth to login and check/return/pickup their own/trusted packages.",
+        "link": "https://github.com/AnishBramha/Java_Sem3_Project"
     }
 ]
+
+
+
+
+
+
+
 
 
 
