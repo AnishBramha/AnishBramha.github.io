@@ -11,6 +11,7 @@
         <button onclick="drawIcon('posts')">Posts</button>
         <button onclick="drawIcon('contact')">Mail (Dock)</button>
         <button onclick="drawIcon('mail')">Mail (Desktop)</button>
+        <button onclick="drawIcon('resume')">Résumé (Desktop)</button>
         <button onclick="drawIcon('nav')">Nav (Desktop)</button>
         <button onclick="drawIcon('socials')">Socials (Dock)</button>
     </div>
@@ -27,7 +28,8 @@
             let s = 1; 
             let ox = 0; let oy = 0;
             
-            if (['mail','nav'].includes(type)) { s = 1.5; ox = 8; oy = 8; }
+            // [MODIFIED] Added 'resume' to the desktop scale group
+            if (['mail','nav', 'resume'].includes(type)) { s = 1.5; ox = 8; oy = 8; }
             else if (['socials', 'projects', 'blog', 'home'].includes(type)) { s = 1.35; ox = 10; oy = 10; }
             else { s = 1; ox = 16; oy = 16; }
 
@@ -109,6 +111,53 @@
                 rect(ox+2, oy+8, 28*s, 18*s, '#EEE');
                 ctx.beginPath(); ctx.moveTo(ox+2, oy+8); ctx.lineTo(ox+16*s, oy+20*s); ctx.lineTo(ox+30*s, oy+8);
                 ctx.strokeStyle='#888'; ctx.stroke();
+            }
+            
+            // [MODIFIED] Added Resume Icon Drawing Logic
+            if (type === 'resume') {
+                const cBoard = '#37474F'; // Dark slate board
+                const cBoardEdge = '#263238'; // Darker edge
+                const cPaper = '#F5F5F5'; 
+                const cLines = '#B0BEC5';
+                const cAccentHead = '#FFB300'; // Yellow Head
+                const cAccentBody = '#33691E'; // Green Shirt
+                const cClip = '#CFD8DC';
+                const cClipHole = '#455A64';
+
+                // 1. Drop Shadow
+                rect(ox+3*s, oy+4*s, 22*s, 28*s, 'rgba(0,0,0,0.3)'); 
+                
+                // 2. Clipboard Base
+                rect(ox, oy+2*s, 24*s, 30*s, cBoard); // Main board
+                rect(ox+22*s, oy+2*s, 2*s, 30*s, cBoardEdge); // Side bevel
+                rect(ox, oy+30*s, 24*s, 2*s, cBoardEdge); // Bottom bevel
+
+                // 3. Paper
+                rect(ox+2.5*s, oy+7*s, 19*s, 22*s, cPaper);
+                
+                // 4. Text Lines
+                rect(ox+12*s, oy+10*s, 7*s, 1.5*s, cLines); // Title line
+                rect(ox+12*s, oy+13*s, 5*s, 1.5*s, cLines); // Subtitle line
+                for(let i=0; i<3; i++) {
+                    rect(ox+4*s, oy+(17 + i*3)*s, 16*s, 1.5*s, cLines); // Body lines
+                }
+
+                // 5. Profile Icon (Pixel Art Style)
+                // Head
+                ctx.fillStyle = cAccentHead;
+                ctx.beginPath(); ctx.arc(ox+7.5*s, oy+10.5*s, 2.5*s, 0, Math.PI*2); ctx.fill();
+                // Body (Shoulders)
+                ctx.fillStyle = cAccentBody;
+                ctx.beginPath(); 
+                ctx.arc(ox+7.5*s, oy+15.5*s, 3.5*s, Math.PI, 0); 
+                ctx.fill();
+
+                // 6. Metal Clip
+                rect(ox+6*s, oy, 12*s, 5*s, cClip); // Main clip plate
+                rect(ox+7*s, oy+1*s, 10*s, 3*s, '#ECEFF1'); // Highlight
+                // Hole in clip
+                ctx.beginPath(); ctx.arc(ox+12*s, oy+2*s, 1.5*s, 0, Math.PI*2); 
+                ctx.fillStyle = cClipHole; ctx.fill();
             }
 
             if (type === 'nav') {

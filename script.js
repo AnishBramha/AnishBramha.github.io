@@ -279,13 +279,12 @@ const pages = {
     },
     'projects': { 
         title: 'Work Disk', 
-        content: `<h2>Active Projects</h2><p>Building a retro web engine.</p>` 
+        content: `<h2>Active Projects</h2><p>Loading projects...</p>` // Will be populated by setupProjects()
     },
     'posts': { 
         title: 'Netscape Feed', 
         content: `<h2>Social Feed</h2><p>No new messages.</p>` 
     },
-    // [MODIFIED] Replaced inline styles with CSS classes for responsive behavior
     'contact': { 
         title: 'Mailbox', 
         content: `
@@ -354,6 +353,8 @@ const app = {
         
         app.setupScrollbars(); 
         app.setupBlog();
+        // [MODIFIED] Initialize Projects System
+        app.setupProjects();
         app.setupEvents();
         app.setupResize(); 
         app.setupDrag(); 
@@ -364,13 +365,11 @@ const app = {
         const hash = window.location.hash.replace('#', '') || 'home';
         app.navigateTo(hash, false);
 
-        // Force dock to open on startup
         if (!state.dockOpen) {
             app.toggleDock();
         }
     },
 
-    // Custom Scrollbars: Fat Outlined Arrow Icons (Vertical Up/Down)
     setupScrollbars: () => {
         const style = document.createElement('style');
         style.textContent = `
@@ -389,7 +388,6 @@ const app = {
                 border-color: #fff #444 #444 #fff;
                 box-shadow: none;
             }
-            
             ::-webkit-scrollbar-button {
                 height: 16px;
                 width: 16px;
@@ -398,27 +396,20 @@ const app = {
                 border-color: #fff #444 #444 #fff;
                 display: block;
             }
-
             ::-webkit-scrollbar-button:start:increment,
             ::-webkit-scrollbar-button:end:decrement {
                 display: none;
             }
-
-            /* UP ARROW (Fat Outlined) */
             ::-webkit-scrollbar-button:vertical:start:decrement {
                 background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 1 L9 5 H7 V9 H3 V5 H1 Z' fill='none' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E");
                 background-position: center;
                 background-repeat: no-repeat;
             }
-
-            /* DOWN ARROW (Fat Outlined) */
             ::-webkit-scrollbar-button:vertical:end:increment {
                 background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 9 L1 5 H3 V1 H7 V5 H9 Z' fill='none' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E");
                 background-position: center;
                 background-repeat: no-repeat;
             }
-
-            /* Horizontal Arrows (if needed) */
             ::-webkit-scrollbar-button:horizontal:start:decrement {
                 background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 5 L5 9 V7 H9 V3 H5 V1 Z' fill='none' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E");
                 background-position: center;
@@ -433,9 +424,7 @@ const app = {
         document.head.appendChild(style);
     },
 
-    // --- NEW BLOG SYSTEM ---
-
-    // 1. Fetch the list of posts from the JSON file
+    // --- BLOG SYSTEM ---
     setupBlog: () => {
         fetch('blog/index.json')
             .then(response => response.json())
@@ -448,9 +437,7 @@ const app = {
             });
     },
 
-    // 2. Render the "Landing Page" (List of all posts)
     renderBlogIndex: (posts) => {
-        // Sort by date (newest first)
         const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
         
         let landingHTML = `
@@ -462,50 +449,42 @@ const app = {
         `;
 
         sortedPosts.forEach(post => {
-            // We register the page in our system now so navigation works later
             if (!pages[post.id]) {
                 pages[post.id] = {
                     title: 'Blog - ' + post.title,
-                    content: '<div style="text-align:center; padding-top:50px;">Loading data from disk...</div>', // Placeholder
-                    isBlogPost: true, // Flag to identify it later
-                    file: post.file   // Store the filename
+                    content: '<div style="text-align:center; padding-top:50px;">Loading data from disk...</div>', 
+                    isBlogPost: true, 
+                    file: post.file   
                 };
             }
             landingHTML += `<li><a style="text-decoration: none;" onclick="app.navigateTo('${post.id}')">${post.title}</a> <span style="font-size:0.8em; color:#666">(${post.date})</span></li>`;
         });
         landingHTML += '</ul>';
         
-        // Update the main blog page content
         pages['blog'].content = landingHTML;
         
-        // Refresh window if user is currently looking at the blog index
         if (state.page === 'blog') {
             const winContent = document.getElementById('window-content');
             if(winContent) winContent.innerHTML = landingHTML;
         }
     },
 
-    // 3. The "File Reader" - Fetches markdown content on demand
     loadBlogPost: (pageId) => {
         const pageData = pages[pageId];
         
-        // If we already have the content in memory, don't fetch again
         if (state.blogCache[pageId]) {
             document.getElementById('window-content').innerHTML = state.blogCache[pageId];
             return;
         }
 
-        // Otherwise, fetch the file
         fetch(`blog/${pageData.file}`)
             .then(res => {
                 if (!res.ok) throw new Error('File not found');
                 return res.text();
             })
             .then(markdown => {
-                // Convert Markdown to HTML using the library we added
                 const htmlContent = marked.parse(markdown);
                 
-                // Add your "Navigation Header" (Previous/Next/All) here if you want it back
                 const finalHTML = `
                     <div style="margin-bottom: 20px;">
                         <a style="text-decoration: none;" onclick="app.navigateTo('blog')">← Back to Index</a>
@@ -515,10 +494,8 @@ const app = {
                     </div>
                 `;
 
-                // Save to cache and update screen
                 state.blogCache[pageId] = finalHTML;
                 
-                // Only update if the user hasn't navigated away while loading
                 if (state.page === pageId) {
                     document.getElementById('window-content').innerHTML = finalHTML;
                 }
@@ -526,6 +503,66 @@ const app = {
             .catch(err => {
                 document.getElementById('window-content').innerHTML = "<p>Error: Data corruption. File could not be read.</p>";
             });
+    },
+
+    // --- [NEW] PROJECTS SYSTEM ---
+    setupProjects: () => {
+        // [MODIFIED] Fetch from external JSON file
+        fetch('projects.json')
+            .then(response => response.json())
+            .then(data => {
+                app.renderProjects(data);
+            })
+            .catch(err => {
+                console.error("Could not load projects:", err);
+                pages['projects'].content = "<p>Error loading projects from disk.</p>";
+            });
+    },
+
+    renderProjects: (projects) => {
+        // [MODIFIED] Render logic based on specific layout requirements
+        const itemsHtml = projects.map((p, index) => {
+            // Bevel line separator between projects (but not after the last one)
+            const separator = index < projects.length - 1 
+                ? `<div style="height: 2px; border-top: 1px solid #888; border-bottom: 1px solid #fff; margin: 25px 0;"></div>` 
+                : '';
+
+            return `
+                <div class="project-unit">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                        <span style="font-size: 1.1em; font-weight: 600; width: 50%; word-wrap: break-word; line-height: 1.2;">
+                            ${p.name}
+                        </span>
+                        
+                        <a href="${p.link}" target="_blank" style="text-decoration: none; display: flex;">
+                            <img src="https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white" alt="GitHub Badge">
+                        </a>
+                    </div>
+                    
+                    <div style="margin-bottom: 10px; color: #333;">
+                        ${p.description}
+                    </div>
+                    
+                    ${separator}
+                </div>
+            `;
+        }).join('');
+
+        // Bold Heading for the main page
+        const fullContent = `
+            <h1 style="margin: 0 0 25px 0; font-size: 1.8em; font-weight: bold;">Projects</h1>
+            <div class="projects-container">
+                ${itemsHtml}
+            </div>
+        `;
+
+        pages['projects'].content = fullContent;
+
+        // If currently viewing projects, update immediately
+        if (state.page === 'projects') {
+            const winContent = document.getElementById('window-content');
+            if(winContent) winContent.innerHTML = fullContent;
+        }
     },
 
     updateClock: () => {
@@ -560,7 +597,6 @@ const app = {
         document.getElementById('window-content').innerHTML = pages[pageId].content;
         document.getElementById('window-content').style.overflow = 'auto';
 
-        // If this is a blog post, fetch the real content now
         if (pages[pageId].isBlogPost) {
             app.loadBlogPost(pageId);
         }
@@ -635,13 +671,9 @@ const app = {
         if (state.dockOpen) {
             container.classList.add('open');
             app.playSound('click');
-            // Dock is Open -> Needs to Close (Left Arrow). 
-            // Rotated 90deg -> Needs Down Arrow to look Left.
             pillGrip.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" style="display:block; margin:auto;" xmlns="http://www.w3.org/2000/svg"><path d="M7 9 L12 16 L17 9 Z" fill="#000" stroke="#000" stroke-width="2" stroke-linejoin="round"/></svg>`;
         } else {
             container.classList.remove('open');
-            // Dock is Closed -> Needs to Open (Right Arrow).
-            // Rotated 90deg -> Needs Up Arrow to look Right.
             pillGrip.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" style="display:block; margin:auto;" xmlns="http://www.w3.org/2000/svg"><path d="M7 15 L12 8 L17 15 Z" fill="#000" stroke="#000" stroke-width="2" stroke-linejoin="round"/></svg>`;
         }
     },
@@ -662,7 +694,6 @@ const app = {
         return '#' + color.replace(/^#/, '').replace(/../g, color => ('0'+Math.min(255, Math.max(0, parseInt(color, 16) + amount)).toString(16)).substr(-2));
     },
 
-    // [MODIFIED] Added openAbout function with HTML, CSS, JS logos and Github Badge
     openAbout: () => {
         const content = `
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
@@ -678,12 +709,11 @@ const app = {
                     <img src="https://img.shields.io/badge/GitHub-black?logo=github" alt="GitHub Badge">
                 </a>
             </div>
-        `.replace(/\n/g, ''); // Strip newlines to prevent openModal from adding <br> tags randomly
+        `.replace(/\n/g, ''); 
 
         app.openModal("Anish Teja's Website", content, 347, 325);
     },
 
-    // [MODIFIED] Added openCredits function
     openCredits: () => {
         const content = `
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
@@ -706,25 +736,21 @@ const app = {
         app.openModal("Credits", content, 338, 338);
     },
 
-    // [MODIFIED] Added sendEmail function for the contact form with Formspree
     sendEmail: () => {
         const from = document.getElementById("c-from").value;
         const subject = document.getElementById("c-sub").value;
         const body = document.getElementById("c-body").value;
         
-        // Basic validation
         if (!from || !body) {
             alert("Please enter your email and a message.");
             return;
         }
 
-        // Visual feedback
         const btn = document.querySelector("#window-content button");
         const originalText = btn.textContent;
         btn.textContent = "Sending...";
         btn.disabled = true;
 
-        // [IMPORTANT] REPLACE THIS WITH YOUR FORMSPREE ENDPOINT
         const endpoint = "https://formspree.io/f/PLACE_YOUR_FORMSPREE_ID_HERE";
 
         fetch(endpoint, {
@@ -742,11 +768,9 @@ const app = {
         .then(response => {
             if (response.ok) {
                 alert("Message sent successfully!");
-                // Clear the form
                 document.getElementById("c-from").value = "";
                 document.getElementById("c-sub").value = "";
                 document.getElementById("c-body").value = "";
-                // [MODIFIED] Removed app.navigateTo('home') to keep window open
             } else {
                 return response.json().then(data => {
                     if (Object.hasOwn(data, 'errors')) {
@@ -768,16 +792,13 @@ const app = {
         });
     },
 
-    // [MODIFIED] Updated openModal to NOT replace \n with <br> to fix layout issues
     openModal: (title, text, w = 640, h = 440) => {
         const win = document.getElementById('window-frame');
         
         document.getElementById('win-title').textContent = title;
-        // [FIX] Removed .replace(/\n/g, '<br>') because it breaks complex HTML layouts
         document.getElementById('window-content').innerHTML = text; 
         document.getElementById('window-content').style.overflow = 'auto'; 
         
-        // [MODIFIED] Width and Height are now dynamic based on arguments
         const left = Math.max(0, (window.innerWidth - w) / 2);
         let top = Math.max(0, (window.innerHeight - h) / 2);
         

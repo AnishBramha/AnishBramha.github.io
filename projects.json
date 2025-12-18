@@ -1,0 +1,20 @@
+[
+    {
+        "name": "cscript",
+        "description": "A personal programming language implementation featuring a custom lexer, parser, and interpreter.",
+        "link": "https://github.com/AnishBramha/cscript"
+    },
+    {
+        "name": "ParcelTrack",
+        "description": "A comprehensive parcel tracking system designed for students to manage incoming deliveries with real-time updates.",
+        "link": "https://github.com/AnishBramha/ParcelTrack"
+    },
+    {
+        "name": "Portfolio OS",
+        "description": "This website! A retro macOS 9 inspired personal site featuring a custom window manager and virtual file system.",
+        "link": "https://github.com/AnishBramha/AnishBramha.github.io"
+    }
+]
+
+
+
