@@ -580,7 +580,6 @@ const app = {
                 w = 720;
                 h = 520;
             }
-            // [MODIFIED] Set small and tight size for Socials
             else if (pageId === 'socials') {
                 w = 300;
                 h = 200;
