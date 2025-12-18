@@ -608,7 +608,7 @@ const app = {
             let h = 440;
             const isBlogType = pageId === 'blog' || pageId.startsWith('post-');
 
-            if (isBlogType) {
+            if (isBlogType || pageId === 'projects') {
                 w = 800; 
                 h = 550; 
             }
