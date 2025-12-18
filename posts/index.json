@@ -1,0 +1,20 @@
+[
+  {
+    "id": "post-welcome",
+    "title": "Welcome to the Feed",
+    "description": "An introduction to the new Netscape Feed system and what I plan to post here in the future.",
+    "date": "2025-12-18",
+    "file": "welcome.md"
+  },
+  {
+    "id": "post-updates",
+    "title": "System Update v1.4",
+    "description": "Changelog for the latest website update, including the new sliding dock mechanics and mobile fixes.",
+    "date": "2025-12-17",
+    "file": "updates.md"
+  }
+]
+
+
+
+

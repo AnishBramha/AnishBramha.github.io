@@ -3,7 +3,10 @@ const state = {
     dockOpen: false,
     bgIndex: 6,
     isResizing: false,
-    blogCache: {}
+    blogCache: {},
+    postsCache: {}, // [NEW] Cache for posts
+    blogIndex: [],  // [NEW] Store list for navigation
+    postsIndex: []  // [NEW] Store list for navigation
 };
 
 // Background colors to cycle through
@@ -76,12 +79,11 @@ const pages = {
                 /* Mobile Specific Styles for this Component */
                 @media (max-width: 768px) {
                     .construction-zone {
-                        /* Scale down slightly and ensure centering */
                         transform: scale(0.85);
                         transform-origin: center top; 
-                        margin-bottom: -20px; /* Reduce extra whitespace from scaling */
+                        margin-bottom: -20px; 
                         width: 100%;
-                        max-width: 400px; /* Prevent it getting too wide on tablets */
+                        max-width: 400px; 
                     }
                 }
 
@@ -122,8 +124,6 @@ const pages = {
                 }
 
                 /* --- Components --- */
-                
-                /* 1. Cab */
                 .loader-cab {
                     position: absolute;
                     top: 0; left: 10px;
@@ -137,7 +137,7 @@ const pages = {
                     position: absolute;
                     top: 6px; left: 4px;
                     width: 28px; height: 18px;
-                    background: #cceeff; /* Very subtle blue tint for glass */
+                    background: #cceeff;
                     border: 2px solid #000;
                     opacity: 0.8;
                 }
@@ -149,8 +149,6 @@ const pages = {
                     border: 1px solid #000;
                     animation: blink-light 1s steps(1) infinite;
                 }
-
-                /* 2. Body */
                 .loader-body {
                     position: absolute;
                     top: 25px; left: 40px;
@@ -173,8 +171,6 @@ const pages = {
                     border: 1px solid #777;
                     background: rgba(0,0,0,0.05);
                 }
-
-                /* 3. Arm Mechanism */
                 .lift-arm-base {
                     position: absolute;
                     top: 28px; left: 55px;
@@ -203,8 +199,6 @@ const pages = {
                     transform: rotate(15deg);
                     z-index: 3;
                 }
-
-                /* 4. Bucket */
                 .bucket-group {
                     position: absolute;
                     top: 20px; right: -10px;
@@ -225,22 +219,19 @@ const pages = {
                     background: #333;
                     border-left: 1px solid #000;
                 }
-
-                /* 5. Tires */
                 .tire {
                     position: absolute;
                     bottom: -8px;
                     width: 30px; height: 30px;
                     background: #222;
                     border-radius: 50%;
-                    border: 2px dashed #000; /* Tread effect */
+                    border: 2px dashed #000; 
                     z-index: 6;
                     animation: spin 1s linear infinite;
                     box-shadow: 2px 2px 0 rgba(0,0,0,0.3);
                 }
                 .tire-rear { left: 12px; width: 34px; height: 34px; bottom: -10px;}
                 .tire-front { left: 75px; }
-                
                 .hubcap {
                     position: absolute;
                     top: 50%; left: 50%;
@@ -250,11 +241,9 @@ const pages = {
                     border: 1px solid #000;
                     border-radius: 50%;
                 }
-
-                /* --- Animations --- */
                 @keyframes drive-across {
                     0% { transform: translateX(0) translateY(0); }
-                    1% { transform: translateX(5px) translateY(1px); } /* Rumble start */
+                    1% { transform: translateX(5px) translateY(1px); }
                     2% { transform: translateX(10px) translateY(0); }
                     100% { transform: translateX(800px) translateY(0); }
                 }
@@ -275,41 +264,36 @@ const pages = {
     },
     'blog': { 
         title: 'Blog', 
-        content: `` // Will be populated by setupBlog()
+        content: `Loading...` 
     },
     'projects': { 
         title: 'Work Disk', 
-        content: `<h2>Active Projects</h2><p>Loading projects...</p>` // Will be populated by setupProjects()
+        content: `<h2>Active Projects</h2><p>Loading projects...</p>`
     },
     'posts': { 
         title: 'Netscape Feed', 
-        content: `<h2>Social Feed</h2><p>No new messages.</p>` 
+        content: `Loading feeds...` 
     },
     'contact': { 
         title: 'Mailbox', 
         content: `
             <div class="contact-container">
                 <h3 class="contact-header">Send Message</h3>
-                
                 <div class="contact-to-row">
                     <span><b>To</b>:</span>&emsp;&ensp;
                     <a href="mailto:anish.bramhajosyula@protonmail.com" style="text-decoration: none; display: flex;">
                         <img src="https://img.shields.io/badge/anish.bramhajosyula@protonmail.com-8A2BE2?logo=protonmail&logoColor=white" alt="Email Badge">
                     </a>
                 </div>
-                
                 <div class="contact-row">
                     <label for="c-from" class="contact-label"><b>From</b>:</label>
                     <input type="email" id="c-from" class="contact-input">
                 </div>
-                
                 <div class="contact-row">
                     <label for="c-sub" class="contact-label"><b>Subject</b>:</label>
                     <input type="text" id="c-sub" class="contact-input">
                 </div>
-                
                 <textarea id="c-body" class="contact-textarea"></textarea>
-                
                 <div class="contact-footer">
                     <button onclick="app.sendEmail()" class="contact-btn"><b>SEND</b></button>
                 </div>
@@ -321,28 +305,23 @@ const pages = {
         content: `
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; font-size: 1.1em; text-align: center">
                 <h3 style="margin: 0 0 20px 0;">Connect with Me</h3>
-                
                 <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap;">
-                    
                     <a href="https://github.com/AnishBramha" target="_blank" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
                         <img src="https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white" alt="GitHub Badge">
                     </a>
-
                     <a href="https://www.linkedin.com/in/anish-teja-bramhajosyula-02aa81320/" target="_blank" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
-                        <img src="https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white&style=flat" alt="LinkedIn Badge">
+                        <img src="https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white" alt="LinkedIn Badge">
                     </a>
-
                     <a href="mailto:anish.bramhajosyula@protonmail.com" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
                         <img src="https://img.shields.io/badge/Email-8A2BE2?logo=protonmail&logoColor=white" alt="Email Badge">
                     </a>
-
                 </div>
             </div>
         `
     },
     'map': {
         title: 'Site Map',
-        content: `<h2>Navigation</h2><ul><li>Home</li><li>Blog</li><li>Projects</li></ul>`
+        content: `<h2>Navigation</h2><ul><li>Home</li><li>Blog</li><li>Projects</li><li>Posts</li></ul>`
     }
 };
 
@@ -353,15 +332,16 @@ const app = {
         
         app.setupScrollbars(); 
         app.setupBlog();
-        // [MODIFIED] Initialize Projects System
         app.setupProjects();
+        // [MODIFIED] Initialize Posts System
+        app.setupPosts();
+        
         app.setupEvents();
         app.setupResize(); 
         app.setupDrag(); 
         
         app.cycleBackground(); 
         
-        // Initial load
         const hash = window.location.hash.replace('#', '') || 'home';
         app.navigateTo(hash, false);
 
@@ -373,53 +353,15 @@ const app = {
     setupScrollbars: () => {
         const style = document.createElement('style');
         style.textContent = `
-            ::-webkit-scrollbar {
-                width: 16px;
-                height: 16px;
-                background: #dfdfdf;
-            }
-            ::-webkit-scrollbar-track {
-                background: #ccc;
-                box-shadow: inset 1px 1px 0px #444, inset -1px -1px 0px #fff;
-            }
-            ::-webkit-scrollbar-thumb {
-                background-color: #c0c0c0;
-                border: 2px solid;
-                border-color: #fff #444 #444 #fff;
-                box-shadow: none;
-            }
-            ::-webkit-scrollbar-button {
-                height: 16px;
-                width: 16px;
-                background-color: #c0c0c0;
-                border: 2px solid;
-                border-color: #fff #444 #444 #fff;
-                display: block;
-            }
-            ::-webkit-scrollbar-button:start:increment,
-            ::-webkit-scrollbar-button:end:decrement {
-                display: none;
-            }
-            ::-webkit-scrollbar-button:vertical:start:decrement {
-                background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 1 L9 5 H7 V9 H3 V5 H1 Z' fill='none' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E");
-                background-position: center;
-                background-repeat: no-repeat;
-            }
-            ::-webkit-scrollbar-button:vertical:end:increment {
-                background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 9 L1 5 H3 V1 H7 V5 H9 Z' fill='none' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E");
-                background-position: center;
-                background-repeat: no-repeat;
-            }
-            ::-webkit-scrollbar-button:horizontal:start:decrement {
-                background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 5 L5 9 V7 H9 V3 H5 V1 Z' fill='none' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E");
-                background-position: center;
-                background-repeat: no-repeat;
-            }
-            ::-webkit-scrollbar-button:horizontal:end:increment {
-                background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 5 L5 1 V3 H1 V7 H5 V9 Z' fill='none' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E");
-                background-position: center;
-                background-repeat: no-repeat;
-            }
+            ::-webkit-scrollbar { width: 16px; height: 16px; background: #dfdfdf; }
+            ::-webkit-scrollbar-track { background: #ccc; box-shadow: inset 1px 1px 0px #444, inset -1px -1px 0px #fff; }
+            ::-webkit-scrollbar-thumb { background-color: #c0c0c0; border: 2px solid; border-color: #fff #444 #444 #fff; box-shadow: none; }
+            ::-webkit-scrollbar-button { height: 16px; width: 16px; background-color: #c0c0c0; border: 2px solid; border-color: #fff #444 #444 #fff; display: block; }
+            ::-webkit-scrollbar-button:start:increment, ::-webkit-scrollbar-button:end:decrement { display: none; }
+            ::-webkit-scrollbar-button:vertical:start:decrement { background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 1 L9 5 H7 V9 H3 V5 H1 Z' fill='none' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E"); background-position: center; background-repeat: no-repeat; }
+            ::-webkit-scrollbar-button:vertical:end:increment { background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 9 L1 5 H3 V1 H7 V5 H9 Z' fill='none' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E"); background-position: center; background-repeat: no-repeat; }
+            ::-webkit-scrollbar-button:horizontal:start:decrement { background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 5 L5 9 V7 H9 V3 H5 V1 Z' fill='none' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E"); background-position: center; background-repeat: no-repeat; }
+            ::-webkit-scrollbar-button:horizontal:end:increment { background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 5 L5 1 V3 H1 V7 H5 V9 Z' fill='none' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E"); background-position: center; background-repeat: no-repeat; }
         `;
         document.head.appendChild(style);
     },
@@ -429,7 +371,9 @@ const app = {
         fetch('blog/index.json')
             .then(response => response.json())
             .then(posts => {
-                app.renderBlogIndex(posts);
+                // [MODIFIED] Store sorted index in state
+                state.blogIndex = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                app.renderBlogIndex(state.blogIndex);
             })
             .catch(err => {
                 console.error("Could not load blog index:", err);
@@ -438,8 +382,6 @@ const app = {
     },
 
     renderBlogIndex: (posts) => {
-        const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-        
         let landingHTML = `
             <div style="margin-bottom: 30px;">
                 <h1 style="margin: 0 0 10px 0; font-size: 1.5em;">The Glottal Stop Blog</h1>
@@ -448,13 +390,14 @@ const app = {
             <ul>
         `;
 
-        sortedPosts.forEach(post => {
+        posts.forEach(post => {
             if (!pages[post.id]) {
                 pages[post.id] = {
                     title: 'Blog - ' + post.title,
                     content: '<div style="text-align:center; padding-top:50px;">Loading data from disk...</div>', 
                     isBlogPost: true, 
-                    file: post.file   
+                    file: post.file,
+                    type: 'blog' // Identify type
                 };
             }
             landingHTML += `<li><a style="text-decoration: none;" onclick="app.navigateTo('${post.id}')">${post.title}</a> <span style="font-size:0.8em; color:#666">(${post.date})</span></li>`;
@@ -462,39 +405,130 @@ const app = {
         landingHTML += '</ul>';
         
         pages['blog'].content = landingHTML;
-        
         if (state.page === 'blog') {
             const winContent = document.getElementById('window-content');
             if(winContent) winContent.innerHTML = landingHTML;
         }
     },
 
-    loadBlogPost: (pageId) => {
-        const pageData = pages[pageId];
+    // --- [NEW] POSTS SYSTEM ---
+    setupPosts: () => {
+        fetch('posts/index.json')
+            .then(response => response.json())
+            .then(posts => {
+                // Store sorted index
+                state.postsIndex = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                app.renderPostsIndex(state.postsIndex);
+            })
+            .catch(err => {
+                console.error("Could not load posts index:", err);
+                pages['posts'].content = "<p>Error loading posts index.</p>";
+            });
+    },
+
+    renderPostsIndex: (posts) => {
+        let landingHTML = `<h1 style="margin: 0 0 25px 0; font-size: 1.8em; font-weight: bold;">Netscape Feed</h1>`;
+
+        posts.forEach((p, index) => {
+            if (!pages[p.id]) {
+                pages[p.id] = {
+                    title: p.title, // Title only for Posts
+                    content: '<div style="text-align:center; padding-top:50px;">Loading post...</div>',
+                    isPost: true,
+                    file: p.file,
+                    type: 'post' // Identify type
+                };
+            }
+
+            // [MODIFIED] Specific structure for Posts landing
+            landingHTML += `
+                <div class="post-unit">
+                    <div class="post-header-row">
+                        <span class="post-title-small">${p.title}</span>
+                        <a class="read-more-link" onclick="app.navigateTo('${p.id}')">Read More ⎋</a>
+                    </div>
+                    <div class="post-description">
+                        ${p.description}
+                    </div>
+                    <div style="height: 2px; border-top: 1px solid #888; border-bottom: 1px solid #fff; margin-top: 15px;"></div>
+                </div>
+            `;
+        });
+
+        pages['posts'].content = landingHTML;
+        if (state.page === 'posts') {
+            const winContent = document.getElementById('window-content');
+            if(winContent) winContent.innerHTML = landingHTML;
+        }
+    },
+
+    // --- SHARED NAVIGATION GENERATOR ---
+    generateNavHTML: (currentId, indexList, type) => {
+        const idx = indexList.findIndex(p => p.id === currentId);
+        if (idx === -1) return '';
+
+        // Note: indexList is sorted Descending (Newest first).
+        // Next in array = Older post = "Previous Entry" chronologically? 
+        // Typically "Previous" means older (Next index) and "Next" means newer (Previous index).
         
-        if (state.blogCache[pageId]) {
-            document.getElementById('window-content').innerHTML = state.blogCache[pageId];
+        const nextItem = indexList[idx - 1]; // Newer
+        const prevItem = indexList[idx + 1]; // Older
+        
+        const labelNext = type === 'blog' ? 'Next Entry' : 'Next Post';
+        const labelAll = type === 'blog' ? 'All Entries' : 'All Posts';
+        const labelPrev = type === 'blog' ? 'Previous Entry' : 'Previous Post';
+        const rootPage = type === 'blog' ? 'blog' : 'posts';
+
+        const prevHTML = prevItem 
+            ? `<a class="nav-item" onclick="app.navigateTo('${prevItem.id}')">${labelPrev}</a>`
+            : `<span class="nav-item disabled">${labelPrev}</span>`;
+            
+        const nextHTML = nextItem 
+            ? `<a class="nav-item" onclick="app.navigateTo('${nextItem.id}')">${labelNext}</a>`
+            : `<span class="nav-item disabled">${labelNext}</span>`;
+
+        return `
+            <div class="nav-bar">
+                ${prevHTML}
+                <a class="nav-item" onclick="app.navigateTo('${rootPage}')">${labelAll}</a>
+                ${nextHTML}
+            </div>
+            <div class="nav-separator"></div>
+        `;
+    },
+
+    // --- GENERIC CONTENT LOADER (Used for both Blog & Posts) ---
+    loadContentFile: (pageId) => {
+        const pageData = pages[pageId];
+        const isBlog = pageData.type === 'blog';
+        const cache = isBlog ? state.blogCache : state.postsCache;
+        const indexList = isBlog ? state.blogIndex : state.postsIndex;
+        const rootDir = isBlog ? 'blog' : 'posts';
+
+        if (cache[pageId]) {
+            document.getElementById('window-content').innerHTML = cache[pageId];
             return;
         }
 
-        fetch(`blog/${pageData.file}`)
+        fetch(`${rootDir}/${pageData.file}`)
             .then(res => {
                 if (!res.ok) throw new Error('File not found');
                 return res.text();
             })
             .then(markdown => {
                 const htmlContent = marked.parse(markdown);
+                const navHTML = app.generateNavHTML(pageId, indexList, pageData.type);
                 
+                // [MODIFIED] Structure for Detail View
                 const finalHTML = `
-                    <div style="margin-bottom: 20px;">
-                        <a style="text-decoration: none;" onclick="app.navigateTo('blog')">← Back to Index</a>
-                    </div>
-                    <div class="markdown-body">
+                    ${navHTML}
+                    <div class="markdown-body post-body-content">
+                        ${isBlog ? '' : `<h1 style="margin-bottom:10px;">${pageData.title}</h1>`}
                         ${htmlContent}
                     </div>
                 `;
 
-                state.blogCache[pageId] = finalHTML;
+                cache[pageId] = finalHTML;
                 
                 if (state.page === pageId) {
                     document.getElementById('window-content').innerHTML = finalHTML;
@@ -505,9 +539,11 @@ const app = {
             });
     },
 
-    // --- [NEW] PROJECTS SYSTEM ---
+    loadBlogPost: (pageId) => {
+        app.loadContentFile(pageId);
+    },
+
     setupProjects: () => {
-        // [MODIFIED] Fetch from external JSON file
         fetch('projects.json')
             .then(response => response.json())
             .then(data => {
@@ -520,9 +556,7 @@ const app = {
     },
 
     renderProjects: (projects) => {
-        // [MODIFIED] Render logic based on specific layout requirements
         const itemsHtml = projects.map((p, index) => {
-            // Bevel line separator between projects (but not after the last one)
             const separator = index < projects.length - 1 
                 ? `<div style="height: 2px; border-top: 1px solid #888; border-bottom: 1px solid #fff; margin: 25px 0;"></div>` 
                 : '';
@@ -548,7 +582,6 @@ const app = {
             `;
         }).join('');
 
-        // Bold Heading for the main page
         const fullContent = `
             <h1 style="margin: 0 0 25px 0; font-size: 1.8em; font-weight: bold;">Projects</h1>
             <div class="projects-container">
@@ -557,8 +590,6 @@ const app = {
         `;
 
         pages['projects'].content = fullContent;
-
-        // If currently viewing projects, update immediately
         if (state.page === 'projects') {
             const winContent = document.getElementById('window-content');
             if(winContent) winContent.innerHTML = fullContent;
@@ -571,9 +602,10 @@ const app = {
     },
 
     navigateTo: (pageId, push = true) => {
-        const currentIsPost = state.page.startsWith('post-');
-        const targetIsPost = pageId && pageId.startsWith('post-');
-        const preserveWindow = currentIsPost && targetIsPost;
+        // [MODIFIED] Check for both blog post and standard post prefixes
+        const currentIsDetail = state.page.startsWith('post-') || (pages[state.page] && (pages[state.page].isBlogPost || pages[state.page].isPost));
+        const targetIsDetail = pageId && ((pageId.startsWith('post-') && pages[pageId]) || (pages[pageId] && (pages[pageId].isBlogPost || pages[pageId].isPost)));
+        const preserveWindow = currentIsDetail && targetIsDetail;
 
         if (!pages[pageId]) pageId = 'home';
         state.page = pageId;
@@ -583,7 +615,9 @@ const app = {
         const variableMenu = document.querySelector('#menu-variable .label');
         if(variableMenu) {
             let displayLabel = pageId;
-            if (pageId.startsWith('post-')) displayLabel = 'Blog'; 
+            // Simplified logic for menu label
+            if (pages[pageId].isBlogPost) displayLabel = 'Blog';
+            else if (pages[pageId].isPost) displayLabel = 'Posts';
             else displayLabel = pageId.charAt(0).toUpperCase() + pageId.slice(1);
             
             variableMenu.textContent = displayLabel;
@@ -597,8 +631,9 @@ const app = {
         document.getElementById('window-content').innerHTML = pages[pageId].content;
         document.getElementById('window-content').style.overflow = 'auto';
 
-        if (pages[pageId].isBlogPost) {
-            app.loadBlogPost(pageId);
+        // [MODIFIED] Universal loader
+        if (pages[pageId].isBlogPost || pages[pageId].isPost) {
+            app.loadContentFile(pageId);
         }
 
         if (preserveWindow) {
@@ -606,10 +641,10 @@ const app = {
         } else {
             let w = 640;
             let h = 440;
-            const isBlogType = pageId === 'blog' || pageId.startsWith('post-');
+            // [MODIFIED] Size logic
+            const isWide = pageId === 'blog' || pageId === 'projects' || pageId === 'posts' || pages[pageId].isBlogPost || pages[pageId].isPost;
 
-            // [MODIFIED] Ensure 'projects' uses the same size as blog (800x550)
-            if (isBlogType || pageId === 'projects') {
+            if (isWide) {
                 w = 800; 
                 h = 550; 
             }
@@ -648,19 +683,30 @@ const app = {
 
         const allPages = ['home', 'blog', 'projects', 'posts', 'contact', 'socials'];
         
+        const isBlogType = currentPage.startsWith('post-') && pages[currentPage]?.type === 'blog';
+        const isPostType = currentPage.startsWith('post-') && pages[currentPage]?.type === 'post';
+
         allPages.forEach(p => {
-            if (p !== currentPage && !(currentPage.startsWith('post-') && p === 'blog')) {
-                const btn = document.createElement('button');
-                btn.textContent = p.charAt(0).toUpperCase() + p.slice(1);
-                btn.onclick = () => app.navigateTo(p);
-                dropdown.appendChild(btn);
+            // Show item if it's not the current page
+            // Special case: if viewing a blog detail, don't show 'blog' in dropdown? Usually we DO show 'Blog' so user can go back to index.
+            
+            const btn = document.createElement('button');
+            
+            if (p === 'blog' && isBlogType) {
+                 // Already in blog section
+                 btn.textContent = 'Blog Index';
+                 btn.onclick = () => app.navigateTo('blog');
+            } else if (p === 'posts' && isPostType) {
+                 btn.textContent = 'Posts Index';
+                 btn.onclick = () => app.navigateTo('posts');
+            } else if (p !== currentPage) {
+                 btn.textContent = p.charAt(0).toUpperCase() + p.slice(1);
+                 btn.onclick = () => app.navigateTo(p);
+            } else {
+                return; // Skip current page
             }
-            if (currentPage.startsWith('post-') && p === 'blog') {
-                const btn = document.createElement('button');
-                btn.textContent = 'Blog';
-                btn.onclick = () => app.navigateTo('blog');
-                dropdown.appendChild(btn);
-            }
+            
+            dropdown.appendChild(btn);
         });
     },
 
