@@ -582,8 +582,8 @@ const app = {
             }
             // [MODIFIED] Set small and tight size for Socials
             else if (pageId === 'socials') {
-                w = 500;
-                h = 320;
+                w = 300;
+                h = 200;
             }
 
             win.style.width = `${w}px`;
@@ -667,8 +667,8 @@ const app = {
     openAbout: () => {
         const content = `
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
-                <h3 style="margin: 0 0 10px 0;">Version 1.1</h3>
-                <p style="margin: 0 0 20px 0;">Created with vanilla HTML, CSS and JavaScript ♥</p>
+                <h3 style="margin: 0 0 10px 0;">Version 1.3</h3>
+                <p style="margin: 0 0 20px 0;">Made with ♥</p>
                 <div style="display: flex; gap: 15px; margin-bottom: 25px;">
                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="40" height="40" alt="HTML5" title="HTML5">
                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="40" height="40" alt="CSS3" title="CSS3">
@@ -676,7 +676,7 @@ const app = {
                 </div>
                 <p style="margin: 0 0 10px 0; font-size: 1em;">Get the source code, suggest and improve:</p>
                 <a href="https://github.com/AnishBramha/AnishBramha.github.io" target="_blank" style="text-decoration: none;">
-                    <img src="https://img.shields.io/badge/github-repo-black?logo=github" alt="GitHub Badge">
+                    <img src="https://img.shields.io/badge/GitHub-black?logo=github" alt="GitHub Badge">
                 </a>
             </div>
         `.replace(/\n/g, ''); // Strip newlines to prevent openModal from adding <br> tags randomly
