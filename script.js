@@ -14,7 +14,8 @@ const backgrounds = ['#708090', '#5F9EA0', '#4682B4', '#556B2F', '#8B4513', '#48
 
 const pages = {
     'home': { 
-        title: 'Under Construction', 
+        title: 'Welcome', 
+        /* // --- PREVIOUS HOMEPAGE (TRUCK ANIMATION) ---
         content: `
             <div class="construction-zone">
                 <div class="warning-tape">
@@ -62,7 +63,6 @@ const pages = {
                     --c-white: #eee;
                 }
 
-                /* --- Layout --- */
                 .construction-zone {
                     width: 100%; height: 180px;
                     background: #d0d0d0;
@@ -76,7 +76,6 @@ const pages = {
                     padding-top: 20px;
                 }
                 
-                /* Mobile Specific Styles for this Component */
                 @media (max-width: 768px) {
                     .construction-zone {
                         transform: scale(0.85);
@@ -87,7 +86,6 @@ const pages = {
                     }
                 }
 
-                /* --- Hazard Tape --- */
                 .warning-tape {
                     background: repeating-linear-gradient(
                         -45deg,
@@ -110,12 +108,10 @@ const pages = {
                     letter-spacing: 1px;
                 }
 
-                /* --- Animation Track --- */
                 .animation-track {
                     width: 100%; flex-grow: 1; position: relative;
                 }
                 
-                /* --- Vehicle Container --- */
                 .bulldozer-group {
                     position: absolute;
                     bottom: 25px; left: -140px;
@@ -123,7 +119,6 @@ const pages = {
                     animation: drive-across 10s linear infinite;
                 }
 
-                /* --- Components --- */
                 .loader-cab {
                     position: absolute;
                     top: 0; left: 10px;
@@ -261,6 +256,31 @@ const pages = {
                 Website is still being built...
             </p>
         ` 
+        */
+        content: `
+            <h1 style="margin-top: 0; font-weight: bold; display: flex; justify-content: space-between; flex-wrap: wrap;">
+                <span>¡Welcome!</span>
+                <span>స్వాగతము !</span>
+            </h1>
+            
+            <div style="height: 2px; border-top: 1px solid #888; border-bottom: 1px solid #fff; margin: 10px 0 20px 0;"></div>
+            
+            <div style="line-height: 1.5;">
+                <p>Welcome to my website! This is my personal space in the internet where I write <a onclick="app.navigateTo('blog')">blogs</a>, <a onclick="app.navigateTo('posts')">post</a> about interesting stuff, showcase my <a onclick="app.navigateTo('projects')">projects</a> and <a onclick="app.navigateTo('socials')">connect</a> with people who find me here!</p>
+
+                <p>I am Anish Teja Bramhajosyula, a sophomore at the International Institute of Information Technology, Bangalore, majoring in Computer Science & Engineering. I love languages and mathematics and aspire to become a computational linguist someday.</p>
+
+                <p>I love singing and listening to Carnatic Music. I take pride in being an ardent <em>rasikā</em>. I also enjoy a warm cup of hot chocolate anytime.</p>
+
+                <p>Reach out to me <a onclick="app.navigateTo('contact')">here</a>. Check out my <a href="assets/résumé.pdf" target="_blank">résumé</a>.</p>
+
+                <p>Have a look around! You can click on the menu bar on the top or toggle the dock at the bottom. Scroll to read more!</p>
+
+                <p>This website design is inspired from the NextStep OS from the 1990s and the classic Macintosh Platinum OS from the '80s and '90s.</p>
+
+                <p>All elements of this website are open-source and free to use.</p>
+            </div>
+        `
     },
     'blog': { 
         title: 'Blog', 
@@ -647,6 +667,10 @@ const app = {
             if (isWide) {
                 w = 800; 
                 h = 550; 
+            }
+            else if (pageId === 'home') {
+                w = 600;
+                h = 600;
             }
             else if (pageId === 'contact') {
                 w = 720;
