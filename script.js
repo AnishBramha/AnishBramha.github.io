@@ -528,7 +528,6 @@ const app = {
                 : '';
 
             return `
-
                 <div class="project-unit">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
                         <span style="font-size: 1.1em; font-weight: 600; width: 50%; word-wrap: break-word; line-height: 1.2;">
@@ -544,7 +543,7 @@ const app = {
                         ${p.description}
                     </div>
                     
-                ${separator}
+                    ${separator}
                 </div>
             `;
         }).join('');
