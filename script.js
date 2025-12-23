@@ -268,13 +268,13 @@ const pages = {
             <div style="line-height: 1.5;">
                 <p>Welcome to my website! This is my personal space in the internet where I write <a onclick="app.navigateTo('blog')">blogs</a>, <a onclick="app.navigateTo('posts')">post</a> about interesting stuff, showcase my <a onclick="app.navigateTo('projects')">projects</a> and <a onclick="app.navigateTo('socials')">connect</a> with people who find me here!</p>
 
-                <p>I am Anish Teja Bramhajosyula, a sophomore at the International Institute of Information Technology, Bangalore, majoring in Computer Science & Engineering. I love languages and mathematics and aspire to become a computational linguist someday.</p>
+                <p>I am <b>Anish Teja Bramhajosyula</b>, a sophomore at the International Institute of Information Technology, Bangalore, majoring in Computer Science & Engineering. I love languages and mathematics and aspire to become a computational linguist someday. One of my pastimes is exploring programming languages — making and breaking. I love exploring and analysing different paradigms (mostly functional and meta).</p>
 
                 <p>I love singing and listening to Carnatic Music. I take pride in being an ardent <em>rasikā</em>. I also enjoy a warm cup of hot chocolate anytime.</p>
 
-                <p>Reach out to me <a onclick="app.navigateTo('contact')">here</a>. Check out my <a href="assets/résumé.pdf" target="_blank">résumé</a>.</p>
+                <p>Reach out to me <a onclick="app.navigateTo('contact')">here</a>. Check out my <a onclick="app.navigateTo('resume')">résumé</a>.</p>
 
-                <p>Have a look around! You can click on the menu bar on the top or toggle the dock at the bottom. Scroll to read more!</p>
+                <p>Have a look around! You can click on the menu bar on the top or toggle the dock at the bottom.</p>
 
                 <p>This website design is inspired from the NextStep OS from the 1990s and the classic Macintosh Platinum OS from the '80s and '90s.</p>
 
@@ -291,7 +291,7 @@ const pages = {
         content: `<h2>Active Projects</h2><p>Loading projects...</p>`
     },
     'posts': { 
-        title: 'Netscape Feed', 
+        title: 'Feed', 
         content: `Loading feeds...` 
     },
     'contact': { 
@@ -301,8 +301,8 @@ const pages = {
                 <h3 class="contact-header">Send Message</h3>
                 <div class="contact-to-row">
                     <span><b>To</b>:</span>&emsp;&ensp;
-                    <a href="mailto:anish.bramhajosyula@protonmail.com" style="text-decoration: none; display: flex;">
-                        <img src="https://img.shields.io/badge/anish.bramhajosyula@protonmail.com-8A2BE2?logo=protonmail&logoColor=white" alt="Email Badge">
+                    <a href="mailto:filter.kapi@tuta.io" style="text-decoration: none; display: flex;">
+                        <img src="https://img.shields.io/badge/filter.kapi@tuta.io-9F1621?logo=tuta&logoColor=white" alt="Email Badge">
                     </a>
                 </div>
                 <div class="contact-row">
@@ -320,6 +320,50 @@ const pages = {
             </div>
         ` 
     },
+    /* [MODIFIED] Added new 'resume' page configuration */
+    'resume': {
+        title: 'Résumé',
+        content: `
+            <div class="contact-container">
+                <h3 class="contact-header">Get Résumé</h3>
+                
+                <div class="contact-to-row">
+                    <span><b>To</b>:</span>&emsp;&ensp;
+                    <a href="mailto:filter.kapi@tuta.io" style="text-decoration: none; display: flex;">
+                        <img src="https://img.shields.io/badge/filter.kapi@tuta.io-9F1621?logo=tuta&logoColor=white" alt="Email Badge">
+                    </a>
+                </div>
+
+                <div class="contact-row">
+                    <label for="r-name" class="contact-label"><b>Name</b>:</label>
+                    <input type="text" id="r-name" class="contact-input" placeholder="Required">
+                </div>
+                
+                <div class="contact-row">
+                    <label for="r-email" class="contact-label"><b>Email</b>:</label>
+                    <input type="email" id="r-email" class="contact-input" placeholder="Required">
+                </div>
+               
+                <div class="contact-row">
+                    <span class="contact-label"><b>Subject</b>:</span>
+                    <span style="font-size: 18px;">View Résumé</span>
+                </div>
+                
+                <div class="contact-row" style="flex-direction:column; align-items:flex-start;">
+                    <label for="r-comments" class="contact-label" style="margin-bottom:4px"><b>Comments</b>:</label>
+                    <textarea id="r-comments" class="contact-textarea" rows="1" placeholder="Optional"></textarea>
+                </div>
+
+                <div style="margin: 15px 0; font-size: 0.95em; color: #333; font-style: italic; border-top: 1px solid #999; padding-top: 10px;">
+                    I will send my résumé to your email address; this mechanism is to protect against plagiarism.
+                </div>
+
+                <div class="contact-footer">
+                    <button onclick="app.requestResume()" class="contact-btn"><b>SEND</b></button>
+                </div>
+            </div>
+        `
+    },
     'socials': {
         title: 'Socials',
         content: `
@@ -332,8 +376,8 @@ const pages = {
                     <a href="https://www.linkedin.com/in/anish-teja-bramhajosyula-02aa81320/" target="_blank" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
                         <img src="https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white" alt="LinkedIn Badge">
                     </a>
-                    <a href="mailto:anish.bramhajosyula@protonmail.com" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
-                        <img src="https://img.shields.io/badge/Email-8A2BE2?logo=protonmail&logoColor=white" alt="Email Badge">
+                    <a href="mailto:filter.kapi@tuta.io" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
+                        <img src="https://img.shields.io/badge/Email-9F1621?logo=tuta&logoColor=white" alt="Email Badge">
                     </a>
                 </div>
             </div>
@@ -680,6 +724,10 @@ const app = {
                 w = 300;
                 h = 200;
             }
+            else if (pageId === 'resume') {
+                w = 410;
+                h = 530;
+            }
 
             win.style.width = `${w}px`;
             win.style.height = `${h}px`;
@@ -822,7 +870,7 @@ const app = {
         btn.textContent = "Sending...";
         btn.disabled = true;
 
-        const endpoint = "https://formspree.io/f/PLACE_YOUR_FORMSPREE_ID_HERE";
+        const endpoint = "https://formspree.io/f/movgzeyw";
 
         fetch(endpoint, {
             method: "POST",
@@ -854,6 +902,66 @@ const app = {
         })
         .catch(error => {
             alert("Error: Could not send message. Check your internet connection.");
+        })
+        .finally(() => {
+            if(btn) {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        });
+    },
+
+    // [MODIFIED] New function to handle Résumé Request specific logic
+    requestResume: () => {
+        const name = document.getElementById("r-name").value;
+        const email = document.getElementById("r-email").value;
+        const subject = "View Résumé";
+        const comments = document.getElementById("r-comments").value;
+        
+        if (!name || !email) {
+            alert("Name and Email are required.");
+            return;
+        }
+
+        const btn = document.querySelector("#window-content button");
+        const originalText = btn.textContent;
+        btn.textContent = "Requesting...";
+        btn.disabled = true;
+
+        // Construct message body with all details
+        const finalMessage = `REQUEST FOR RESUME\n\nName: ${name}\nEmail: ${email}\n\nComments:\n${comments}`;
+
+        const endpoint = "https://formspree.io/f/movgzeyw";
+
+        fetch(endpoint, {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                subject: subject,
+                message: finalMessage,
+                name: name // Sending name field as well
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Request sent successfully! I will email you shortly.");
+                app.navigateTo('home');
+            } else {
+                return response.json().then(data => {
+                    if (Object.hasOwn(data, 'errors')) {
+                        alert(data["errors"].map(error => error["message"]).join(", "));
+                    } else {
+                        alert("Oops! There was a problem sending your request.");
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            alert("Error: Could not send request. Check your internet connection.");
         })
         .finally(() => {
             if(btn) {
