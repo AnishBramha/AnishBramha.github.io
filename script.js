@@ -682,6 +682,7 @@ const app = {
             // Simplified logic for menu label
             if (pages[pageId].isBlogPost) displayLabel = 'Blog';
             else if (pages[pageId].isPost) displayLabel = 'Posts';
+            else if (pageId === 'resume') displayLabel = 'Résumé';
             else displayLabel = pageId.charAt(0).toUpperCase() + pageId.slice(1);
             
             variableMenu.textContent = displayLabel;
