@@ -4,12 +4,11 @@ const state = {
     bgIndex: 6,
     isResizing: false,
     blogCache: {},
-    postsCache: {}, // [NEW] Cache for posts
-    blogIndex: [],  // [NEW] Store list for navigation
-    postsIndex: []  // [NEW] Store list for navigation
+    postsCache: {},
+    blogIndex: [],
+    postsIndex: []
 };
 
-// Background colors to cycle through
 const backgrounds = ['#708090', '#5F9EA0', '#4682B4', '#556B2F', '#8B4513', '#483D8B', '#B8860B'];
 
 const pages = {
@@ -268,7 +267,7 @@ const pages = {
             <div style="line-height: 1.5;">
                 <p>Welcome to my website! This is my personal space in the internet where I write <a onclick="app.navigateTo('blog')">blogs</a>, <a onclick="app.navigateTo('posts')">post</a> about interesting stuff, showcase my <a onclick="app.navigateTo('projects')">projects</a> and <a onclick="app.navigateTo('socials')">connect</a> with people who find me here!</p>
 
-                <p>I am <b>Anish Teja Bramhajosyula</b>, a sophomore at the International Institute of Information Technology, Bangalore, majoring in Computer Science & Engineering. I love languages and mathematics and aspire to become a computational linguist someday. One of my pastimes is exploring programming languages — making and breaking. I love exploring and analysing different paradigms (mostly functional and meta).</p>
+                <p>I am <b>Anish Teja Bramhajosyula</b>, a sophomore at the International Institute of Information Technology, Bangalore, majoring in Computer Science & Engineering. I love languages, both programming and natural, and mathematics. One of my pastimes is exploring programming languages — making and breaking. I love exploring and analysing different paradigms (mostly functional and meta).</p>
 
                 <p>I love singing and listening to Carnatic Music. I take pride in being an ardent <em>rasikā</em>. I also enjoy a warm cup of hot chocolate anytime.</p>
 
@@ -278,7 +277,7 @@ const pages = {
 
                 <p>This website design is inspired from the NextStep OS from the 1990s and the classic Macintosh Platinum OS from the '80s and '90s.</p>
 
-                <p>All elements of this website are open-source and free to use.</p>
+                <p>All elements of this website are open-source and <a onclick="app.openCredits()">free</a> to use.</p>
             </div>
         `
     },
@@ -320,7 +319,6 @@ const pages = {
             </div>
         ` 
     },
-    /* [MODIFIED] Added new 'resume' page configuration */
     'resume': {
         title: 'Résumé',
         content: `
@@ -397,7 +395,6 @@ const app = {
         app.setupScrollbars(); 
         app.setupBlog();
         app.setupProjects();
-        // [MODIFIED] Initialize Posts System
         app.setupPosts();
         
         app.setupEvents();
@@ -461,7 +458,7 @@ const app = {
                     content: '<div style="text-align:center; padding-top:50px;">Loading data from disk...</div>', 
                     isBlogPost: true, 
                     file: post.file,
-                    type: 'blog' // Identify type
+                    type: 'blog'
                 };
             }
             landingHTML += `<li><a style="text-decoration: none;" onclick="app.navigateTo('${post.id}')">${post.title}</a> <span style="font-size:0.8em; color:#666">(${post.date})</span></li>`;
@@ -475,12 +472,10 @@ const app = {
         }
     },
 
-    // --- [NEW] POSTS SYSTEM ---
     setupPosts: () => {
         fetch('posts/index.json')
             .then(response => response.json())
             .then(posts => {
-                // Store sorted index
                 state.postsIndex = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
                 app.renderPostsIndex(state.postsIndex);
             })
@@ -496,15 +491,14 @@ const app = {
         posts.forEach((p, index) => {
             if (!pages[p.id]) {
                 pages[p.id] = {
-                    title: p.title, // Title only for Posts
+                    title: p.title,
                     content: '<div style="text-align:center; padding-top:50px;">Loading post...</div>',
                     isPost: true,
                     file: p.file,
-                    type: 'post' // Identify type
+                    type: 'post'
                 };
             }
 
-            // [MODIFIED] Specific structure for Posts landing
             landingHTML += `
                 <div class="post-unit">
                     <div class="post-header-row">
@@ -526,15 +520,10 @@ const app = {
         }
     },
 
-    // --- SHARED NAVIGATION GENERATOR ---
     generateNavHTML: (currentId, indexList, type) => {
         const idx = indexList.findIndex(p => p.id === currentId);
         if (idx === -1) return '';
 
-        // Note: indexList is sorted Descending (Newest first).
-        // Next in array = Older post = "Previous Entry" chronologically? 
-        // Typically "Previous" means older (Next index) and "Next" means newer (Previous index).
-        
         const nextItem = indexList[idx - 1]; // Newer
         const prevItem = indexList[idx + 1]; // Older
         
@@ -561,7 +550,6 @@ const app = {
         `;
     },
 
-    // --- GENERIC CONTENT LOADER (Used for both Blog & Posts) ---
     loadContentFile: (pageId) => {
         const pageData = pages[pageId];
         const isBlog = pageData.type === 'blog';
@@ -583,7 +571,6 @@ const app = {
                 const htmlContent = marked.parse(markdown);
                 const navHTML = app.generateNavHTML(pageId, indexList, pageData.type);
                 
-                // [MODIFIED] Structure for Detail View
                 const finalHTML = `
                     ${navHTML}
                     <div class="markdown-body post-body-content">
@@ -660,6 +647,81 @@ const app = {
         }
     },
 
+
+    closeMenus: () => {
+        document.querySelectorAll('.menu-item, .dropdown button').forEach(i => i.classList.remove('active', 'flash'));
+    },
+
+    menuFlash: (item, callback) => {
+        let flashes = 0;
+        const interval = setInterval(() => {
+            item.classList.toggle('flash');
+            flashes++;
+            if (flashes === 4) {
+                clearInterval(interval);
+                item.classList.remove('flash');
+                if (callback) callback();
+            }
+        }, 60);
+    },
+
+    playSound: (type) => {
+        const audio = document.getElementById(`sfx-${type}`);
+        if(audio) {
+            audio.currentTime = 0;
+            audio.play().catch(()=>{});
+        }
+    },
+
+    prepareMenuButtons: () => {
+        document.querySelectorAll('.dropdown button').forEach(btn => {
+            if (btn.dataset.prepared) return;
+            const originalOnClick = btn.onclick;
+            btn.onclick = null;
+
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                app.menuFlash(btn, () => {
+                    app.closeMenus();
+                    if (originalOnClick) originalOnClick.call(btn, e);
+                });
+            });
+            btn.dataset.prepared = "true";
+        });
+    },
+
+    setupEvents: () => {
+        document.querySelectorAll('.menu-item').forEach(item => {
+            // item.addEventListener('mousedown', () => item.classList.add('inset'));
+            // item.addEventListener('mouseup', () => item.classList.remove('inset'));
+            // item.addEventListener('touchstart', () => item.classList.add('inset'), {passive: true});
+            // item.addEventListener('touchend', () => item.classList.remove('inset'));
+
+            item.addEventListener('click', (e) => {
+                e.stopPropagation(); 
+                const isActive = item.classList.contains('active');
+                
+                if (isActive) {
+                    app.closeMenus();
+                } else {
+                    app.closeMenus();
+                    app.menuFlash(item, () => {
+                        item.classList.add('active');
+                    });
+                }
+            });
+        });
+
+        document.addEventListener('click', app.closeMenus);
+        
+        document.addEventListener('touchstart', (e) => {
+            if (!e.target.closest('.menu-item')) app.closeMenus();
+        }, {passive: true});
+
+        app.prepareMenuButtons(); // Initial preparation
+    },
+
+
     updateClock: () => {
         const now = new Date();
         document.getElementById('clock').textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
@@ -696,7 +758,6 @@ const app = {
         document.getElementById('window-content').innerHTML = pages[pageId].content;
         document.getElementById('window-content').style.overflow = 'auto';
 
-        // [MODIFIED] Universal loader
         if (pages[pageId].isBlogPost || pages[pageId].isPost) {
             app.loadContentFile(pageId);
         }
@@ -746,6 +807,7 @@ const app = {
 
         app.playSound('open');
         app.closeMenus();
+        app.prepareMenuButtons();
     },
 
     updateVariableDropdown: (currentPage) => {
@@ -1006,6 +1068,24 @@ const app = {
         }
     },
 
+
+    prepareMenuButtons: () => {
+        document.querySelectorAll('.dropdown button').forEach(btn => {
+            if (btn.dataset.prepared) return;
+            const originalOnClick = btn.onclick;
+            btn.onclick = null;
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                app.menuFlash(btn, () => {
+                    app.closeMenus();
+                    if (originalOnClick) originalOnClick.call(btn, e);
+                });
+            });
+            btn.dataset.prepared = "true";
+        });
+    },
+
+
     setupEvents: () => {
         document.querySelectorAll('.menu-item').forEach(item => {
             item.addEventListener('mousedown', () => item.classList.add('inset'));
@@ -1015,10 +1095,18 @@ const app = {
 
             item.addEventListener('click', (e) => {
                 e.stopPropagation(); 
+
+                if (e.target.closest('.dropdown')) return;
+                
+                e.stopPropagation();
                 const isActive = item.classList.contains('active');
-                app.closeMenus(); 
-                if (!isActive) {
-                    item.classList.add('active');
+                if (isActive) {
+                    app.closeMenus();
+                } else {
+                    app.closeMenus();
+                    app.menuFlash(item, () => {
+                        item.classList.add('active');
+                    });
                 }
             });
         });

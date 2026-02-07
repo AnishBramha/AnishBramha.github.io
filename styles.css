@@ -51,7 +51,6 @@ body {
   transition: background-color 0.5s ease;
 }
 
-/* --- 3D Bevel Utilities --- */
 .bevel-out {
   background: var(--sys-gray);
   border-top: 2px solid #fff;
@@ -70,14 +69,13 @@ body {
 }
 
 .inset {
-    background: #BBB;
+    background: /*#BBB*/ none;
     border-top: 2px solid #555;
     border-left: 2px solid #555;
     border-right: 2px solid #FFF;
     border-bottom: 2px solid #FFF;
 }
 
-/* --- Menu Bar --- */
 .system-bar {
   height: 32px;
   display: flex;
@@ -102,10 +100,18 @@ body {
   position: relative;
   border-radius: 2px;
 }
+
+.menu-item:hover,
 .menu-item:active,
 .menu-item.active {
-  background: #AAA;
-  box-shadow: inset 2px 2px 0px #444, inset -1px -1px 0px #FFF; 
+  background: none;
+  box-shadow: none; 
+}
+
+.menu-item.flash, 
+.dropdown button.flash {
+    background: #000 !important;
+    color: #FFF !important;
 }
 
 .dropdown {
@@ -133,8 +139,8 @@ body {
   cursor: pointer;
 }
 .dropdown button:hover {
-  background: var(--sys-darker);
-  color: #fff;
+  background: #AAA9A9;
+  color: /*#fff*/ #000;
 }
 .separator {
   height: 2px;
@@ -155,7 +161,6 @@ body {
     top: 50px; right: 20px;
     display: flex; flex-direction: column;
     gap: 20px;
-    /* [MODIFIED] Lowered z-index so windows can pass over */
     z-index: 10;
     align-items: center;
 }
@@ -198,7 +203,6 @@ body {
   padding: 4px;
   transition: opacity 0.2s;
   box-shadow: 10px 10px 0 rgba(0,0,0,0.2);
-  /* [MODIFIED] Added z-index higher than icons (10) */
   z-index: 20;
 }
 
@@ -281,7 +285,6 @@ body {
 }
 .window-content a { color: var(--sys-purple); cursor: pointer; text-decoration: underline; }
 
-/* [MODIFIED] Ensure badges/images scale down on mobile */
 .window-content img {
     max-width: 100%;
     height: auto;
@@ -304,7 +307,7 @@ body {
   border-top: 1px solid #888;
 }
 
-/* --- Slider Dock (Bottom Left) --- */
+/* --- Slider Dock --- */
 .dock-container {
   position: fixed;
   bottom: 20px;
@@ -314,7 +317,6 @@ body {
   z-index: 900;
 }
 
-/* The Trigger Tab */
 .dock-tab-pill {
     position: absolute;
     right: -24px; 
@@ -336,7 +338,6 @@ body {
     letter-spacing: -1px;
 }
 
-/* The Sliding Drawer */
 .dock-drawer {
   display: flex; 
   align-items: center;
@@ -349,7 +350,6 @@ body {
   box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
 }
 
-/* Expanded State handled by JS class */
 .dock-container.open .dock-drawer {
   transform: translateX(0); 
 }
@@ -393,7 +393,6 @@ body {
   color: #000;
 }
 
-/* Scanline Overlay */
 .scanlines {
   position: fixed;
   top: 0;
@@ -435,163 +434,48 @@ body {
     padding: 6px 12px; border: 2px outset #eee; background: #ccc; cursor: pointer; font-family: inherit;
 }
 
-/* --- MOBILE & TABLET RESPONSIVENESS --- */
 @media (max-width: 768px) {
-    /* 1. Remove Desktop Icons */
-    .desktop-icons-right {
-        display: none !important;
-    }
-
-    /* 2. System Bar Adjustments */
-    .system-bar {
-        padding: 0 2px;
-    }
-    .pinstripe-box {
-        display: none; 
-    }
-    .clock {
-        font-size: 10px;
-        padding: 2px 4px;
-    }
-    .menu-item {
-        padding: 6px 8px;
-    }
-
-    /* 3. Window Centering & Spacing */
+    .desktop-icons-right { display: none !important; }
+    .system-bar { padding: 0 2px; }
+    .clock { font-size: 10px; padding: 2px 4px; }
+    .menu-item { padding: 6px 8px; }
     .window {
-        width: 90% !important;   /* [MODIFIED] Smaller width (from 90% to 80%) */
-        left: 5% !important;    /* [MODIFIED] Centered (100-80)/2 */
+        width: 90% !important;
+        left: 5% !important;
         top: 60px !important;    
-        height: 70vh !important; /* [MODIFIED] Use VH for consistency */
-        height: 70dvh !important;/* [MODIFIED] Use DVH for Chromium mobile address bar fix */
+        height: 70dvh !important;
         min-width: 0;
     }
-
-    /* Force window content to vertically center its children (the grey box) */
-    .window-content {
-        padding: 10px !important; 
-        display: flex; 
-        flex-direction: column; 
-        align-items: center;
-    }
-
-    .window-header {
-        height: 36px;
-    }
-    .win-btn {
-        width: 24px; height: 24px;
-    }
-
-    /* 4. Dock Adjustments */
-    .dock-tab-pill {
-        width: 32px; height: 70px;
-    }
-    .dock-track {
-        height: 70px;
-        gap: 8px;
-        padding: 0 8px;
-    }
-    .dock-icon {
-        width: 44px;
-    }
-    .dock-icon img {
-        width: 28px; height: 28px;
-    }
-
-    /* 5. Contact Form Mobile Adjustments */
-    .contact-row {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 2px;
-    }
-    .contact-to-row {
-        flex-wrap: wrap; /* Allows badge to wrap to next line if screen is narrow */
-    }
-    .contact-label {
-        min-width: auto;
-        margin-bottom: 2px;
-    }
+    .window-content { padding: 10px !important; display: flex; flex-direction: column; align-items: center; }
+    .window-header { height: 36px; }
+    .win-btn { width: 24px; height: 24px; }
+    .dock-tab-pill { width: 32px; height: 70px; }
+    .dock-track { height: 70px; gap: 8px; padding: 0 8px; }
+    .dock-icon { width: 44px; }
+    .dock-icon img { width: 28px; height: 28px; }
+    .contact-row { flex-direction: column; align-items: stretch; gap: 2px; }
+    .contact-to-row { flex-wrap: wrap; }
+    .contact-label { min-width: auto; margin-bottom: 2px; }
 }
 
-/* Apple Garamond Lookalike Class */
 .apple-lookalike {
   font-family: 'EB Garamond', serif;
-  /* Transform to mimic the condensed look of Apple Garamond */
   transform: scaleX(0.8); 
   transform-origin: left;
-  /* Optional: Ensure it looks good if used in headings */
   font-weight: 400; 
 }
 
-/* --- NEW: Posts & Navigation Styles --- */
-
-/* Post List Item Styling */
-.post-unit {
-    margin-bottom: 20px;
-}
-
-.post-header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 8px;
-}
-
-.post-title-small {
-    font-weight: bold;
-    font-size: 1.1em;
-    width: 50%;            /* Half the horizontal length */
-    word-wrap: break-word; /* Wrap text */
-    line-height: 1.2;
-}
-
-.read-more-link {
-    color: var(--sys-purple);
-    text-decoration: none;
-    cursor: pointer;
-    font-family: "EB Garamond", serif; /* [MODIFIED] Use Garamond */
-    font-size: 0.85em; /* [MODIFIED] Smaller font size */
-    white-space: nowrap;   
-}
-.read-more-link:hover {
-    color: #483D8B; /* Slightly darker purple on hover */
-}
-
-.post-description {
-    color: #333;
-    margin-bottom: 10px;
-}
-
-/* Detailed View Navigation Bar */
-.nav-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap; /* Wrap if run out of space */
-    gap: 10px;
-    margin-bottom: 10px;
-    font-family: "EB Garamond", serif; /* [MODIFIED] Use Garamond */
-    font-size: 0.85em; /* [MODIFIED] Smaller font size */
-}
-
-.nav-item {
-    color: var(--sys-purple);
-    text-decoration: none;
-    cursor: pointer;
-    font-weight: bold;
-}
-.nav-item.disabled {
-    color: #999;
-    cursor: default;
-    pointer-events: none;
-}
-
-.nav-separator {
-    height: 2px;
-    background: #999;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #fff; /* Bevel effect */
-}
-
-/* Ensure headings in the post body look right */
+.post-unit { margin-bottom: 20px; }
+.post-header-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.post-title-small { font-weight: bold; font-size: 1.1em; width: 50%; word-wrap: break-word; line-height: 1.2; }
+.read-more-link { color: var(--sys-purple); text-decoration: none; cursor: pointer; font-family: "EB Garamond", serif; font-size: 0.85em; white-space: nowrap; }
+.read-more-link:hover { color: #483D8B; }
+.post-description { color: #333; margin-bottom: 10px; }
+.nav-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; font-family: "EB Garamond", serif; font-size: 0.85em; }
+.nav-item { color: var(--sys-purple); text-decoration: none; cursor: pointer; font-weight: bold; }
+.nav-item.disabled { color: #999; cursor: default; pointer-events: none; }
+.nav-separator { height: 2px; background: #999; margin-bottom: 20px; border-bottom: 1px solid #fff; }
 .post-body-content h1 { font-size: 1.5em; margin-top: 0; }
+
+
+
