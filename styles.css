@@ -305,10 +305,16 @@ body {
 .resize-handle {
   width: 16px; height: 16px;
   cursor: se-resize;
-  background: repeating-linear-gradient(135deg, #888, #888 1px, transparent 1px, transparent 3px);
-  border-left: 1px solid #888;
-  border-top: 1px solid #888;
+  background-color: #c0c0c0;
+  border: 2px solid;
+  border-color: #fff #444 #444 #fff;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 13px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' transform='rotate(45)' stroke='%23000000' stroke-width='2.9' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M2,12 L10,4 L10,8 L14,8 L14,4 L22,12 L14,20 L14,16 L10,16 L10,20 Z' /%3E%3C/svg%3E");
+  z-index: 900;
 }
+
 
 .dock-container {
   position: fixed;

@@ -249,7 +249,7 @@ const pages = {
                     0%, 49% { background: #fff; opacity: 1; }
                     50%, 100% { background: #999; opacity: 0.5; }
                 }
-            </style>
+            </style>"
             
             <p style="text-align:center; font-size:12px; color:#555; margin-top:10px;">
                 Website is still being built...
@@ -257,12 +257,15 @@ const pages = {
         ` 
         */
         content: `
-            <h1 style="margin-top: 0; font-weight: bold; display: flex; justify-content: space-between; flex-wrap: wrap;">
-                <span>¡Welcome!</span>
-                <span>స్వాగతము !</span>
-            </h1>
+
+        <div class="home-greeting-row">
+                <h1 class="home-welcome-title">¡Welcome!</h1>
+                <img src="/assets/my-face.png" alt="My Face" class="home-greeting-img">
+            </div>
+            <div class="home-subtitle">స్వాగతము !</div>
             
             <div style="height: 2px; border-top: 1px solid #888; border-bottom: 1px solid #fff; margin: 10px 0 20px 0;"></div>
+            
             
             <div style="line-height: 1.5;">
                 <p>Welcome to my website! This is my personal space in the internet where I write <a onclick="app.navigateTo('blog')">blogs</a>, <a onclick="app.navigateTo('posts')">post</a> about interesting stuff, showcase my <a onclick="app.navigateTo('projects')">projects</a> and <a onclick="app.navigateTo('socials')">connect</a> with people who find me here!</p>
