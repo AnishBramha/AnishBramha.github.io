@@ -448,7 +448,7 @@ body {
         height: 70dvh !important;
         min-width: 0;
     }
-    .window-content { padding: 10px !important; display: flex; flex-direction: column; align-items: center; }
+    .window-content { padding: 10px !important; display: block; flex-direction: column; align-items: center; }
     .window-header { height: 36px; }
     .win-btn { width: 24px; height: 24px; }
     .dock-tab-pill { width: 32px; height: 70px; }
