@@ -9,7 +9,19 @@ const state = {
     postsIndex: []
 };
 
-const backgrounds = ['#708090', '#5F9EA0', '#4682B4', '#556B2F', '#8B4513', '#483D8B', '#B8860B'];
+const backgrounds = [
+    '#483D8B', 
+    '#8B4513', 
+    '#FA9EFF',
+    '#DD673B',
+    '#C93032',
+    '#B8860B', 
+    '#B2B2B2',
+    '#708090',
+    '#5F9EA0',
+    '#4682B4',
+    '#556B2F',
+];
 
 const pages = {
     'home': { 
