@@ -1,14 +1,14 @@
 [
     {
         "id": "blog-welcome",
-        "title": "Welcome to the Blog!",
+        "title": "Welcome to the blog!",
         "date": "2026-02-07",
         "file": "welcome.md"
     },
 
     {
         "id": "blog-why-lisp",
-        "title": "Why Lisp Might Be Better Than What You Might Think",
+        "title": "Why Lisp might actually be better than what you might think",
         "date": "2026-02-08",
         "file": "why-lisp.md"
     }
