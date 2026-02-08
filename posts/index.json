@@ -1,17 +1,18 @@
 [
   {
     "id": "post-welcome",
-    "title": "Welcome to the Feed",
-    "description": "An introduction to the new Netscape Feed system and what I plan to post here in the future.",
-    "date": "2025-12-18",
+    "title": "Welcome to my Feed!",
+    "description": "I explain what this feed is for",
+    "date": "2026-02-07",
     "file": "welcome.md"
   },
+
   {
-    "id": "post-updates",
-    "title": "System Update v1.4",
-    "description": "Changelog for the latest website update, including the new sliding dock mechanics and mobile fixes.",
-    "date": "2025-12-17",
-    "file": "updates.md"
+    "id": "post-omniglot",
+    "title": "A great website for language lovers",
+    "description": "Omniglot is cool",
+    "date": "2026-02-08",
+    "file": "omniglot.md"
   }
 ]
 

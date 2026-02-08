@@ -446,7 +446,7 @@ const app = {
         let landingHTML = `
             <div style="margin-bottom: 30px;">
                 <h1 style="margin: 0 0 10px 0; font-size: 1.5em;">The Glottal Stop Blog</h1>
-                <div style="font-size: 1.1em; color: #444; margin-bottom: 10px;">A blog for computational linguistics, mathematics, programming languages and other topics which I find interesting</div>
+                <div style="font-size: 1.1em; color: #444; margin-bottom: 10px;">A blog for programming languages, compilers, interpreters, linguistics, and other such topics which I find interesting </div>
             </div>
             <ul>
         `;
@@ -454,7 +454,7 @@ const app = {
         posts.forEach(post => {
             if (!pages[post.id]) {
                 pages[post.id] = {
-                    title: 'Blog - ' + post.title,
+                    title: 'Blog — ' + post.title,
                     content: '<div style="text-align:center; padding-top:50px;">Loading data from disk...</div>', 
                     isBlogPost: true, 
                     file: post.file,
@@ -486,12 +486,13 @@ const app = {
     },
 
     renderPostsIndex: (posts) => {
-        let landingHTML = `<h1 style="margin: 0 0 25px 0; font-size: 1.8em; font-weight: bold;">Netscape Feed</h1>`;
+        let landingHTML = `<h1 style="margin: 0 0 25px 0; font-size: 1.8em; font-weight: bold;">Feed</h1>`;
 
         posts.forEach((p, index) => {
             if (!pages[p.id]) {
                 pages[p.id] = {
-                    title: p.title,
+                    title: 'Post — ' + p.title,
+                    rawTitle: p.title,
                     content: '<div style="text-align:center; padding-top:50px;">Loading post...</div>',
                     isPost: true,
                     file: p.file,
@@ -574,7 +575,7 @@ const app = {
                 const finalHTML = `
                     ${navHTML}
                     <div class="markdown-body post-body-content">
-                        ${isBlog ? '' : `<h1 style="margin-bottom:10px;">${pageData.title}</h1>`}
+                        ${isBlog ? '' : `<h1 style="margin-bottom:10px;">${pageData.rawTitle || pageData.title}</h1>`}
                         ${htmlContent}
                     </div>
                 `;
