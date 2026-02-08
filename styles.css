@@ -1,6 +1,4 @@
-/* Font style */
 @import url('https://fonts.cdnfonts.com/css/chicagoflf');
-/* [MODIFIED] Added EB Garamond for the Apple lookalike */
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&display=swap');
 
 :root {
@@ -155,7 +153,6 @@ body {
   letter-spacing: 1px;
 }
 
-/* --- Desktop Icons --- */
 .desktop-icons-right {
     position: absolute;
     top: 50px; right: 20px;
@@ -185,7 +182,6 @@ body {
 }
 .desktop-icon:active img { opacity: 0.7; }
 
-/* --- Window System --- */
 .desktop {
   height: calc(100% - 32px);
   position: relative;
@@ -279,15 +275,22 @@ body {
   height: 100%;
   overflow-y: auto;
   padding: 20px;
-  font-family: "EB Garamond", serif;
+  font-family: "EB Garamond", sans-serif;
   font-size: 18px; 
   user-select: text;
+  font-feature-settings: "ss06";
 }
 .window-content a { color: var(--sys-purple); cursor: pointer; text-decoration: underline; }
 
 .window-content img {
     max-width: 100%;
     height: auto;
+}
+
+.window-content code {
+    font-weight: bold;
+    font-family: "SF Mono", "Segoe UI Mono", "Roboto Mono", monospace;
+    font-size: 0.85em;
 }
 
 .window-footer {
@@ -307,7 +310,6 @@ body {
   border-top: 1px solid #888;
 }
 
-/* --- Slider Dock --- */
 .dock-container {
   position: fixed;
   bottom: 20px;
@@ -405,7 +407,6 @@ body {
   z-index: 9999;
 }
 
-/* --- CONTACT FORM STYLES --- */
 .contact-container {
     display: flex; flex-direction: column; height: 100%;
 }
@@ -436,6 +437,7 @@ body {
 
 @media (max-width: 768px) {
     .desktop-icons-right { display: none !important; }
+    .pinstripe-box { display: none !important; }
     .system-bar { padding: 0 2px; }
     .clock { font-size: 10px; padding: 2px 4px; }
     .menu-item { padding: 6px 8px; }
@@ -485,6 +487,8 @@ body {
     font-style: italic;
     color: #222;
 }
+
+
 
 
 

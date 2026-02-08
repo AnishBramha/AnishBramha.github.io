@@ -461,7 +461,11 @@ const app = {
                     type: 'blog'
                 };
             }
-            landingHTML += `<li><a style="text-decoration: none;" onclick="app.navigateTo('${post.id}')">${post.title}</a> <span style="font-size:0.8em; color:#666">(${post.date})</span></li>`;
+
+            const [y, m, d] = post.date.split('-');
+            const formattedDate = `${d}/${m}/${y.slice(2)}`;
+
+            landingHTML += `<li><a style="text-decoration: none;" onclick="app.navigateTo('${post.id}')">${post.title}</a> <span style="font-size:0.8em; color:#666">(${formattedDate})</span></li>`;
         });
         landingHTML += '</ul>';
         
