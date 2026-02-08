@@ -464,6 +464,11 @@ body {
     .contact-row { flex-direction: column; align-items: stretch; gap: 2px; }
     .contact-to-row { flex-wrap: wrap; }
     .contact-label { min-width: auto; margin-bottom: 2px; }
+    .resize-handle {
+        opacity: 0.3;
+        pointer-events: none;
+        filter: grayscale(100%);
+    }
 }
 
 .apple-lookalike {
