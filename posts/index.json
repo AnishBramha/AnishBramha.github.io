@@ -21,6 +21,22 @@
     "description": "Get rid of ads in YouTube mobile",
     "date": "2026-02-09",
     "file": "yt-ads.md"
+  },
+
+  {
+    "id": "post-crust-joke",
+    "title": "A Joke on Crust: Pure Gold!",
+    "description": "Why it sometimes feel like Rust developers are deranged",
+    "date": "2026-02-12",
+    "file": "crust-joke.md"
+  },
+
+  {
+    "id": "post-compiler-paper",
+    "title": "Elementary Compiler Construction",
+    "description": "Wonderful paper on building a simple Lisp compiler",
+    "date": "2026-02-14",
+    "file": "compiler-paper.md"
   }
 ]
 
