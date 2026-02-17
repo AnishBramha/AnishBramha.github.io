@@ -210,6 +210,12 @@ Here, the 'memoised' part is acutally the variables *a* and *b*, and the updates
 
 
 
+### References
+
+- *Structure and Interpretation of Computer Programs* ([SICP](https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/index.html)) by Abelson, et al.
+
+
+
 
 
 
