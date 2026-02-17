@@ -825,7 +825,6 @@ const app = {
             win.classList.remove('hidden');
         }
 
-        app.playSound('open');
         app.closeMenus();
         app.prepareMenuButtons();
     },
@@ -872,7 +871,6 @@ const app = {
 
         if (state.dockOpen) {
             container.classList.add('open');
-            app.playSound('click');
             pillGrip.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" style="display:block; margin:auto;" xmlns="http://www.w3.org/2000/svg"><path d="M7 9 L12 16 L17 9 Z" fill="#000" stroke="#000" stroke-width="2" stroke-linejoin="round"/></svg>`;
         } else {
             container.classList.remove('open');
@@ -1072,20 +1070,11 @@ const app = {
         win.style.top = `${top}px`;
 
         win.classList.remove('hidden');
-        app.playSound('open');
         app.closeMenus();
     },
 
     closeMenus: () => {
         document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
-    },
-
-    playSound: (type) => {
-        const audio = document.getElementById(`sfx-${type}`);
-        if(audio) {
-            audio.currentTime = 0;
-            audio.play().catch(()=>{});
-        }
     },
 
 
