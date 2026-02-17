@@ -11,8 +11,16 @@
         "title": "Why Lisp might actually be better than what you might think",
         "date": "2026-02-08",
         "file": "why-lisp.md"
+    },
+
+    {
+        "id": "blog-tail-call-optimisation",
+        "title": "Tail Call Optimisation",
+        "date": "2026-02-16",
+        "file": "tail-call-optimisation.md"
     }
 ]
+
 
 
 
