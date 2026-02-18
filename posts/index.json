@@ -37,6 +37,14 @@
     "description": "Wonderful paper on building a simple Lisp compiler",
     "date": "2026-02-14",
     "file": "compiler-paper.md"
+  },
+
+  {
+    "id": "post-yoda-conditons",
+    "title": "Yoda Conditions",
+    "description": "The assignment, mistake it you will for an equality",
+    "date": "2026-02-18",
+    "file": "yoda-conditions.md"
   }
 ]
 
