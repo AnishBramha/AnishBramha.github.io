@@ -936,6 +936,38 @@ const app = {
         app.openModal("Credits", content, 338, 338);
     },
 
+    openDangerous: () => {
+        const content = `
+            <div style="text-align: left; padding: 10px 20px;">
+                <h3 style="margin-top: 0; text-align: center;">⚠ DISCLAIMER ⚠</h3>
+                <p style="text-align: center; margin-bottom: 15px;">
+                    Stay away! Only inflammatory and opinionated takes!
+                </p>
+                <ul style="line-height: 1.5;">
+                    <li>Opinions expressed here are entirely my own.</li>
+                    <li>Content may contain traces of sarcasm and hyperbole.</li>
+                    <li>Reader discretion is advised (and ignored).</li>
+                    <li>If you disagree, you are probably wrong (just kidding).</li>
+                </ul>
+                <p style="text-align: center; margin-bottom: 15px;">
+                Here we go... (you've been warned)
+                </p>
+                <ul style="line-height: 1.5;">
+                    <li>The execessive use of Ctrl and Meta keys in Emacs is capable of causing arthritis</li>
+                    <li>Microslop vibe-coding 30% of Windows is why it sucks</li>
+                    <li>BSD package managers are much better than those built for GNU/Linux</li>
+                    <li>Gnome sucks and is for noobs – serious people use XFCE/Mate – gods use only TTY</li>
+                    <li>Skeumorphism is the way to go and liquid-glass transparent metro style fruitger ripoffs are copium for modern day vibecoders to make blocky lifeless and characterless interfaces appeal to people after a decade of shoving flat interfaces down our faces</li>
+                    <li>C must have slices: the bare minimum and it's overdue</li>
+                    <li>Half of Rust's unsafe features being in nightly phase even after over 15 years of the existence of this language is proof that they don't want people linking with libc and messing with the 'safe' prescription of Rust</li>
+                    <li>TM Krishna was right all along :(</li>
+                </ul>
+            </div>
+        `.replace(/\n/g, '');
+
+        app.openModal('Dangerous', content, 500, 400);
+    },
+
     sendEmail: () => {
         const from = document.getElementById("c-from").value;
         const subject = document.getElementById("c-sub").value;
