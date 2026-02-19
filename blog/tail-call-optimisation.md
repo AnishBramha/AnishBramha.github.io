@@ -110,7 +110,7 @@ Now we can avoid the entire fiasco of maintaining a stack and all that extra sto
 
 **Note**: While not every recursive procedure can be converted effectively to tail-recursive procedures, there's this interesting technique called [**Continuation Passing Style**](https://en.wikipedia.org/wiki/Continuation-passing_style) which can be used to turn any recursive procedure into a chain of tail calls (but you cannot always cheat space complexity).
 
-The need for such optimisations becomes very clear when look at the Assembly produced upon compilation. Look at the following C snippet:
+The need for such optimisations becomes very clear when one looks at the Assembly produced upon compilation. Look at the following C snippet:
 
 ```c
 int fact1(int n) {

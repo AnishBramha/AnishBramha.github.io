@@ -80,6 +80,7 @@
                                 .bulb-glass {
                                     animation: harsh-blink 0.8s steps(1) infinite;
                                 }
+                                
                             </style>
                         </defs>
                         <path class="bulb-glass" d="M12,2C8.13,2 5,5.13 5,9C5,12.38 7.39,15.2 10.5,15.87V18H13.5V15.87C16.61,15.2 19,12.38 19,9C19,5.13 15.87,2 12,2Z" fill="url(#bulbGlow)"/>
@@ -89,8 +90,8 @@
                     </svg>
                 </div>
                 <div class="dropdown bevel-out">
-                    <button onclick="app.openAbout()">About</button>
-                    <button onclick="app.openCredits()">Credits</button>
+                    <button onclick="app.navigateTo('about')">About</button>
+                    <button onclick="app.navigateTo('credits')">Credits</button>
                 </div>
             </div>
 
@@ -115,13 +116,13 @@
                     <button onclick="app.navigateTo('contact')">Contact</button>
                     <button onclick="app.navigateTo('socials')">Socials</button>
                     <div class="separator bevel-in"></div>
-                    <button onclick="app.openDangerous()">Dangerous</button>
+                    <button onclick="app.navigateTo('dangerous')">Dangerous</button>
                 </div>
             </div>
         </div>
 
         <div class="menu-right">
-            <span class="pinstripe-box">Anish Teja's Website</span>
+            <span class="pinstripe-box" style="font-size: 14px;">Anish Teja's Website</span>
             <span id="clock" class="clock bevel-in">12:00 PM</span>
         </div>
     </header>

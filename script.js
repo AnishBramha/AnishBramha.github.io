@@ -399,6 +399,74 @@ const pages = {
     'map': {
         title: 'Site Map',
         content: `<h2>Navigation</h2><ul><li>Home</li><li>Blog</li><li>Projects</li><li>Posts</li></ul>`
+    },
+    'about': {
+        title: "Anish Teja's Website",
+        content: `
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
+                <h3 style="margin: 0 0 10px 0;">Version 1.6</h3>
+                <p style="margin: 0 0 20px 0;">Made with ♥</p>
+                <div style="display: flex; gap: 15px; margin-bottom: 25px;">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="40" height="40" alt="HTML5" title="HTML5">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="40" height="40" alt="CSS3" title="CSS3">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="40" height="40" alt="JavaScript" title="JavaScript">
+                </div>
+                <p style="margin: 0 0 10px 0; font-size: 1em;">Get the source code, suggest and improve:</p>
+                <a href="https://github.com/AnishBramha/AnishBramha.github.io" target="_blank" style="text-decoration: none;">
+                    <img src="https://img.shields.io/badge/GitHub-black?logo=github" alt="GitHub Badge">
+                </a>
+            </div>
+        `.replace(/\n/g, '')
+    },
+    'credits': {
+        title: 'Credits',
+        content: `
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
+                <p style="margin: 0 0 15px 0;">
+                    <span style="display:inline-block; transform: rotate(180deg); font-size: 2.5em; vertical-align: middle; line-height: 1;">&copy;</span> All Wrongs Reserved
+                </p>
+                <p style="margin: 0 0 15px 0;">Anish Teja Bramhajosyula</p>
+                <p style="margin: 0 0 15px 0;">Huge thanks to <a href="https://aravind-bramha.netlify.app" target="_blank" style="color: #6a5acd;">Aravind Bramhajosyula</a>!</p>
+                
+                <a href="https://www.gnu.org/licenses/gpl-3.0-standalone.html" target="_blank" style="text-decoration: none; margin-bottom: 10px; display: block;">
+                    <img src="https://www.gnu.org/graphics/gplv3-with-text-136x68.png" width="136" alt="GPLv3 Logo">
+                </a>
+                
+                <a href="https://www.gnu.org/licenses/gpl-3.0-standalone.html" target="_blank" style="text-decoration: none;">
+                    <img src="https://img.shields.io/badge/-LICENCE-d12000" alt="Licence Badge">
+                </a>
+            </div>
+        `.replace(/\n/g, '')
+    },
+    'dangerous': {
+        title: 'Dangerous',
+        content: `
+            <div style="text-align: left; padding: 10px 20px;">
+                <h3 style="margin-top: 0; text-align: center;">⚠ DISCLAIMER ⚠</h3>
+                <p style="text-align: center; margin-bottom: 15px;">
+                    Stay away! Only inflammatory and opinionated takes!
+                </p>
+                <ul style="line-height: 1.5;">
+                    <li>Opinions expressed here are entirely my own.</li>
+                    <li>Content may contain traces of sarcasm and hyperbole.</li>
+                    <li>Reader discretion is advised (and ignored).</li>
+                    <li>If you disagree, you are probably wrong (just kidding).</li>
+                </ul>
+                <p style="text-align: center; margin-bottom: 15px;">
+                Here we go... (you've been warned)
+                </p>
+                <ul style="line-height: 1.5;">
+                    <li>The execessive use of Ctrl and Meta keys in Emacs is capable of causing arthritis</li>
+                    <li>Microslop vibe-coding 30% of Windows is why it sucks</li>
+                    <li>BSD package managers are much better than those built for GNU/Linux</li>
+                    <li>Gnome sucks and is for noobs – KDE is decent – serious people use XFCE/Mate – gods use only TTY</li>
+                    <li>Skeumorphism is the way to go and liquid-glass transparent metro style frutiger aero ripoffs are copium for modern day vibecoders to make blocky lifeless and characterless interfaces appeal to people after a decade of shoving flat interfaces down our faces</li>
+                    <li>C must have slices: the bare minimum and it's overdue</li>
+                    <li>Half of Rust's unsafe features being in nightly phase even after over 15 years of the existence of this language is proof that they don't want people linking with libc and messing with their 'safe' prescription of Rust</li>
+                    <li>TM Krishna was right all along :(</li>
+                </ul>
+            </div>
+        `.replace(/\n/g, '')
     }
 };
 
@@ -429,12 +497,13 @@ const app = {
     setupScrollbars: () => {
         const style = document.createElement('style');
         style.textContent = `
-            ::-webkit-scrollbar { width: 16px; height: 16px; background: #dfdfdf; }
-            ::-webkit-scrollbar-track { background: #ccc; box-shadow: inset 1px 1px 0px #444, inset -1px -1px 0px #fff; }
+            ::-webkit-scrollbar { width: 16px; height: 16px; background: #dfdfdf; cursor: grab; }
+            ::-webkit-scrollbar:active { width: 16px; height: 16px; background: #dfdfdf; cursor: grabbing; }
+            ::-webkit-scrollbar-track { background: #ccc; box-shadow: inset 1px 1px 0px #444, inset -1px -1px 0px #fff; user-select: none; cursor: normal; }
             ::-webkit-scrollbar-thumb { background-color: #c0c0c0; border: 2px solid; border-color: #fff #444 #444 #fff; box-shadow: none; }
             ::-webkit-scrollbar-button { height: 16px; width: 16px; background-color: #c0c0c0; border: 2px solid; border-color: #fff #444 #444 #fff; display: block; }
             ::-webkit-scrollbar-button:start:increment, ::-webkit-scrollbar-button:end:decrement { display: none; }
-            ::-webkit-scrollbar-button:vertical:start:decrement { background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 1 L9 5 H7 V9 H3 V5 H1 Z' fill='none' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E"); background-position: center; background-repeat: no-repeat; }
+            ::-webkit-scrollbar-button:vertical:start:decrement { background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 1 L9 5 H7 V9 H3 V5 H1 Z' fill='none' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E"); background-position: center; background-repeat: no-repeat; user-select:norma;}
             ::-webkit-scrollbar-button:vertical:end:increment { background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 9 L1 5 H3 V1 H7 V5 H9 Z' fill='none' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E"); background-position: center; background-repeat: no-repeat; }
             ::-webkit-scrollbar-button:horizontal:start:decrement { background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 5 L5 9 V7 H9 V3 H5 V1 Z' fill='none' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E"); background-position: center; background-repeat: no-repeat; }
             ::-webkit-scrollbar-button:horizontal:end:increment { background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 5 L5 1 V3 H1 V7 H5 V9 Z' fill='none' stroke='black' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E"); background-position: center; background-repeat: no-repeat; }
@@ -787,7 +856,6 @@ const app = {
         } else {
             let w = 640;
             let h = 440;
-            // [MODIFIED] Size logic
             const isWide = pageId === 'blog' || pageId === 'projects' || pageId === 'posts' || pages[pageId].isBlogPost || pages[pageId].isPost;
 
             if (isWide) {
@@ -809,6 +877,15 @@ const app = {
             else if (pageId === 'resume') {
                 w = 410;
                 h = 530;
+            }
+            else if (pageId === 'about') {
+                w = 347; h = 325;
+            }
+            else if (pageId === 'credits') {
+                w = 338; h = 338;
+            }
+            else if (pageId === 'dangerous') {
+                w = 500; h = 400;
             }
 
             win.style.width = `${w}px`;
@@ -857,7 +934,7 @@ const app = {
                  btn.textContent = p.charAt(0).toUpperCase() + p.slice(1);
                  btn.onclick = () => app.navigateTo(p);
             } else {
-                return; // Skip current page
+                return;
             }
             
             dropdown.appendChild(btn);
@@ -871,10 +948,14 @@ const app = {
 
         if (state.dockOpen) {
             container.classList.add('open');
-            pillGrip.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" style="display:block; margin:auto;" xmlns="http://www.w3.org/2000/svg"><path d="M7 9 L12 16 L17 9 Z" fill="#000" stroke="#000" stroke-width="2" stroke-linejoin="round"/></svg>`;
+            pillGrip.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 10 10" background-position="center" background-repeat="no-repeat" fill='black' stroke='black' stroke-width='1.5' stroke-linejoin='round' transform='rotate(-90)'>
+<path d="M1 5 L5 9 V7 H9 V3 H5 V1 Z"/>
+</svg>`;
         } else {
             container.classList.remove('open');
-            pillGrip.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" style="display:block; margin:auto;" xmlns="http://www.w3.org/2000/svg"><path d="M7 15 L12 8 L17 15 Z" fill="#000" stroke="#000" stroke-width="2" stroke-linejoin="round"/></svg>`;
+            pillGrip.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 10 10" background-position="center" background-repeat="no-repeat" fill='black' stroke='black' stroke-width='1.5' stroke-linejoin='round' transform='rotate(90)'>
+<path d="M1 5 L5 9 V7 H9 V3 H5 V1 Z"/>
+</svg>`;
         }
     },
 
@@ -894,79 +975,79 @@ const app = {
         return '#' + color.replace(/^#/, '').replace(/../g, color => ('0'+Math.min(255, Math.max(0, parseInt(color, 16) + amount)).toString(16)).substr(-2));
     },
 
-    openAbout: () => {
-        const content = `
-            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
-                <h3 style="margin: 0 0 10px 0;">Version 1.3</h3>
-                <p style="margin: 0 0 20px 0;">Made with ♥</p>
-                <div style="display: flex; gap: 15px; margin-bottom: 25px;">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="40" height="40" alt="HTML5" title="HTML5">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="40" height="40" alt="CSS3" title="CSS3">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="40" height="40" alt="JavaScript" title="JavaScript">
-                </div>
-                <p style="margin: 0 0 10px 0; font-size: 1em;">Get the source code, suggest and improve:</p>
-                <a href="https://github.com/AnishBramha/AnishBramha.github.io" target="_blank" style="text-decoration: none;">
-                    <img src="https://img.shields.io/badge/GitHub-black?logo=github" alt="GitHub Badge">
-                </a>
-            </div>
-        `.replace(/\n/g, ''); 
-
-        app.openModal("Anish Teja's Website", content, 347, 325);
-    },
-
-    openCredits: () => {
-        const content = `
-            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
-                <p style="margin: 0 0 15px 0;">
-                    <span style="display:inline-block; transform: rotate(180deg); font-size: 2.5em; vertical-align: middle; line-height: 1;">&copy;</span> All Wrongs Reserved
-                </p>
-                <p style="margin: 0 0 15px 0;">Anish Teja Bramhajosyula</p>
-                <p style="margin: 0 0 15px 0;">Huge thanks to <a href="https://aravind-bramha.netlify.app" target="_blank" style="color: #6a5acd;">Aravind Bramhajosyula</a>!</p>
-                
-                <a href="https://www.gnu.org/licenses/gpl-3.0-standalone.html" target="_blank" style="text-decoration: none; margin-bottom: 10px; display: block;">
-                    <img src="https://www.gnu.org/graphics/gplv3-with-text-136x68.png" width="136" alt="GPLv3 Logo">
-                </a>
-                
-                <a href="https://www.gnu.org/licenses/gpl-3.0-standalone.html" target="_blank" style="text-decoration: none;">
-                    <img src="https://img.shields.io/badge/-LICENCE-d12000" alt="Licence Badge">
-                </a>
-            </div>
-        `.replace(/\n/g, '');
-
-        app.openModal("Credits", content, 338, 338);
-    },
-
-    openDangerous: () => {
-        const content = `
-            <div style="text-align: left; padding: 10px 20px;">
-                <h3 style="margin-top: 0; text-align: center;">⚠ DISCLAIMER ⚠</h3>
-                <p style="text-align: center; margin-bottom: 15px;">
-                    Stay away! Only inflammatory and opinionated takes!
-                </p>
-                <ul style="line-height: 1.5;">
-                    <li>Opinions expressed here are entirely my own.</li>
-                    <li>Content may contain traces of sarcasm and hyperbole.</li>
-                    <li>Reader discretion is advised (and ignored).</li>
-                    <li>If you disagree, you are probably wrong (just kidding).</li>
-                </ul>
-                <p style="text-align: center; margin-bottom: 15px;">
-                Here we go... (you've been warned)
-                </p>
-                <ul style="line-height: 1.5;">
-                    <li>The execessive use of Ctrl and Meta keys in Emacs is capable of causing arthritis</li>
-                    <li>Microslop vibe-coding 30% of Windows is why it sucks</li>
-                    <li>BSD package managers are much better than those built for GNU/Linux</li>
-                    <li>Gnome sucks and is for noobs – serious people use XFCE/Mate – gods use only TTY</li>
-                    <li>Skeumorphism is the way to go and liquid-glass transparent metro style fruitger ripoffs are copium for modern day vibecoders to make blocky lifeless and characterless interfaces appeal to people after a decade of shoving flat interfaces down our faces</li>
-                    <li>C must have slices: the bare minimum and it's overdue</li>
-                    <li>Half of Rust's unsafe features being in nightly phase even after over 15 years of the existence of this language is proof that they don't want people linking with libc and messing with the 'safe' prescription of Rust</li>
-                    <li>TM Krishna was right all along :(</li>
-                </ul>
-            </div>
-        `.replace(/\n/g, '');
-
-        app.openModal('Dangerous', content, 500, 400);
-    },
+    // openAbout: () => {
+    //     const content = `
+    //         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
+    //             <h3 style="margin: 0 0 10px 0;">Version 1.5</h3>
+    //             <p style="margin: 0 0 20px 0;">Made with ♥</p>
+    //             <div style="display: flex; gap: 15px; margin-bottom: 25px;">
+    //                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="40" height="40" alt="HTML5" title="HTML5">
+    //                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="40" height="40" alt="CSS3" title="CSS3">
+    //                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="40" height="40" alt="JavaScript" title="JavaScript">
+    //             </div>
+    //             <p style="margin: 0 0 10px 0; font-size: 1em;">Get the source code, suggest and improve:</p>
+    //             <a href="https://github.com/AnishBramha/AnishBramha.github.io" target="_blank" style="text-decoration: none;">
+    //                 <img src="https://img.shields.io/badge/GitHub-black?logo=github" alt="GitHub Badge">
+    //             </a>
+    //         </div>
+    //     `.replace(/\n/g, ''); 
+    //
+    //     app.openModal("Anish Teja's Website", content, 347, 325);
+    // },
+    //
+    // openCredits: () => {
+    //     const content = `
+    //         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
+    //             <p style="margin: 0 0 15px 0;">
+    //                 <span style="display:inline-block; transform: rotate(180deg); font-size: 2.5em; vertical-align: middle; line-height: 1;">&copy;</span> All Wrongs Reserved
+    //             </p>
+    //             <p style="margin: 0 0 15px 0;">Anish Teja Bramhajosyula</p>
+    //             <p style="margin: 0 0 15px 0;">Huge thanks to <a href="https://aravind-bramha.netlify.app" target="_blank" style="color: #6a5acd;">Aravind Bramhajosyula</a>!</p>
+    //
+    //             <a href="https://www.gnu.org/licenses/gpl-3.0-standalone.html" target="_blank" style="text-decoration: none; margin-bottom: 10px; display: block;">
+    //                 <img src="https://www.gnu.org/graphics/gplv3-with-text-136x68.png" width="136" alt="GPLv3 Logo">
+    //             </a>
+    //
+    //             <a href="https://www.gnu.org/licenses/gpl-3.0-standalone.html" target="_blank" style="text-decoration: none;">
+    //                 <img src="https://img.shields.io/badge/-LICENCE-d12000" alt="Licence Badge">
+    //             </a>
+    //         </div>
+    //     `.replace(/\n/g, '');
+    //
+    //     app.openModal("Credits", content, 338, 338);
+    // },
+    //
+    // openDangerous: () => {
+    //     const content = `
+    //         <div style="text-align: left; padding: 10px 20px;">
+    //             <h3 style="margin-top: 0; text-align: center;">⚠ DISCLAIMER ⚠</h3>
+    //             <p style="text-align: center; margin-bottom: 15px;">
+    //                 Stay away! Only inflammatory and opinionated takes!
+    //             </p>
+    //             <ul style="line-height: 1.5;">
+    //                 <li>Opinions expressed here are entirely my own.</li>
+    //                 <li>Content may contain traces of sarcasm and hyperbole.</li>
+    //                 <li>Reader discretion is advised (and ignored).</li>
+    //                 <li>If you disagree, you are probably wrong (just kidding).</li>
+    //             </ul>
+    //             <p style="text-align: center; margin-bottom: 15px;">
+    //             Here we go... (you've been warned)
+    //             </p>
+    //             <ul style="line-height: 1.5;">
+    //                 <li>The execessive use of Ctrl and Meta keys in Emacs is capable of causing arthritis</li>
+    //                 <li>Microslop vibe-coding 30% of Windows is why it sucks</li>
+    //                 <li>BSD package managers are much better than those built for GNU/Linux</li>
+    //                 <li>Gnome sucks and is for noobs – serious people use XFCE/Mate – gods use only TTY</li>
+    //                 <li>Skeumorphism is the way to go and liquid-glass transparent metro style frutiger aero ripoffs are copium for modern day vibecoders to make blocky lifeless and characterless interfaces appeal to people after a decade of shoving flat interfaces down our faces</li>
+    //                 <li>C must have slices: the bare minimum and it's overdue</li>
+    //                 <li>Half of Rust's unsafe features being in nightly phase even after over 15 years of the existence of this language is proof that they don't want people linking with libc and messing with their 'safe' prescription of Rust</li>
+    //                 <li>TM Krishna was right all along :(</li>
+    //             </ul>
+    //         </div>
+    //     `.replace(/\n/g, '');
+    //
+    //     app.openModal('Dangerous', content, 500, 400);
+    // },
 
     sendEmail: () => {
         const from = document.getElementById("c-from").value;
@@ -1008,7 +1089,7 @@ const app = {
                     if (Object.hasOwn(data, 'errors')) {
                         alert(data["errors"].map(error => error["message"]).join(", "));
                     } else {
-                        alert("Oops! There was a problem sending your message.");
+                        alert("Whoops! There was a problem sending your message.");
                     }
                 });
             }
@@ -1024,7 +1105,6 @@ const app = {
         });
     },
 
-    // [MODIFIED] New function to handle Résumé Request specific logic
     requestResume: () => {
         const name = document.getElementById("r-name").value;
         const email = document.getElementById("r-email").value;
@@ -1041,7 +1121,6 @@ const app = {
         btn.textContent = "Requesting...";
         btn.disabled = true;
 
-        // Construct message body with all details
         const finalMessage = `REQUEST FOR RESUME\n\nName: ${name}\nEmail: ${email}\n\nComments:\n${comments}`;
 
         const endpoint = "https://formspree.io/f/movgzeyw";
@@ -1056,7 +1135,7 @@ const app = {
                 email: email,
                 subject: subject,
                 message: finalMessage,
-                name: name // Sending name field as well
+                name: name
             })
         })
         .then(response => {

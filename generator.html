@@ -22,13 +22,11 @@
             canvas.width = 64; canvas.height = 64; 
             const ctx = canvas.getContext('2d');
             
-            // Helper
             const rect = (x,y,w,h,c) => { ctx.fillStyle=c; ctx.fillRect(x,y,w,h); };
             
             let s = 1; 
             let ox = 0; let oy = 0;
             
-            // [MODIFIED] Added 'resume' to the desktop scale group
             if (['mail','nav', 'resume'].includes(type)) { s = 1.5; ox = 8; oy = 8; }
             else if (['socials', 'projects', 'blog', 'home'].includes(type)) { s = 1.35; ox = 10; oy = 10; }
             else { s = 1; ox = 16; oy = 16; }
@@ -166,9 +164,9 @@
             }
 
             if (type === 'socials') {
-                ctx.fillStyle = '#77DD77'; ctx.beginPath(); ctx.arc(ox+12*s, oy+14*s, 7*s, 0, Math.PI*2); ctx.fill(); ctx.beginPath(); ctx.arc(ox+12*s, oy+28*s, 9*s, Math.PI, 0); ctx.fill(); 
-                ctx.fillStyle = '#66CCFF'; ctx.beginPath(); ctx.arc(ox+22*s, oy+18*s, 8*s, 0, Math.PI*2); ctx.fill(); ctx.beginPath(); ctx.arc(ox+22*s, oy+34*s, 11*s, Math.PI, 0); ctx.fill(); 
-                ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.beginPath(); ctx.arc(ox+20*s, oy+16*s, 3*s, 0, Math.PI*2); ctx.fill(); ctx.beginPath(); ctx.arc(ox+10*s, oy+12*s, 3*s, 0, Math.PI*2); ctx.fill();
+                ctx.fillStyle = 'rgba(100,255,100,1)'; ctx.beginPath(); ctx.arc(ox+12*s, oy+14*s, 7*s, 0, Math.PI*2); ctx.fill(); ctx.beginPath(); ctx.arc(ox+12*s, oy+28*s, 9*s, Math.PI, 0); ctx.fill(); 
+                ctx.fillStyle = 'rgba(102,200,255,1)'; ctx.beginPath(); ctx.arc(ox+22*s, oy+18*s, 8*s, 0, Math.PI*2); ctx.fill(); ctx.beginPath(); ctx.arc(ox+22*s, oy+34*s, 11*s, Math.PI, 0); ctx.fill(); 
+                ctx.fillStyle = 'rgba(255,255,255,0.6)'; ctx.beginPath(); ctx.arc(ox+20*s, oy+16*s, 3*s, 0, Math.PI*2); ctx.fill(); ctx.beginPath(); ctx.arc(ox+10*s, oy+12*s, 3*s, 0, Math.PI*2); ctx.fill();
             }
 
             const link = document.createElement('a');
