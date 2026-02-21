@@ -76,8 +76,7 @@ There are more instances of this happening in many other Tyāgarāja *kṛtis*, 
 
 ### Before You Leave
 
-If you're curious, check out my Carnatic interests [here]().
-
+If you're curious, check out my Carnatic interests <a onclick="app.navigateTo('favourites')">here</a>.
 
 
 
