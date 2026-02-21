@@ -404,7 +404,7 @@ const pages = {
         title: "Anish Teja's Website",
         content: `
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
-                <h3 style="margin: 0 0 10px 0;">Version 1.6</h3>
+                <h3 style="margin: 0 0 10px 0;">Version 1.7</h3>
                 <p style="margin: 0 0 20px 0;">Made with ♥</p>
                 <div style="display: flex; gap: 15px; margin-bottom: 25px;">
                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="40" height="40" alt="HTML5" title="HTML5">
@@ -467,7 +467,45 @@ const pages = {
                 </ul>
             </div>
         `.replace(/\n/g, '')
-    }
+    },
+    'favourites': {
+            title: 'Favourites',
+            content: `
+                <div style="text-align: left; padding: 10px 20px;">
+                    <h3 style="margin-top: 0; text-align: center;"> ✷ Favourites ✷ </h3>
+                    <p style="text-align: center; margin-bottom: 15px;">
+                        My favourites things across a lot of domains
+                    </p>
+                    <ul style="line-height: 1.5;">
+                        <li><b>Natural Non-Native Language</b>: Sanskrit</li>
+                        <li><b>Writing System</b>: Hebrew</li>
+                        <li><b>Programming Language</b>: C</li>
+                        <li><b>Code Editor</b>: NeoVim</li>
+                        <li><b>Operating System</b>: Debian</li>
+                        <li><b>Kernel</b>: FreeBSD</li>
+                        <li><b>Shell</b>: zsh</li>
+                        <li><b>Terminal Emulator</b>: Ghostty</li>
+                        <li><b>Desktop Environment</b>: XFCE</li>
+                        <li><b>Book</b>: <i>Dead Souls</i> by Nikolai Gogol</li>
+                        <li><b>Game</b>: EA Cricket 07</li>
+                        <li><b>Sport</b>: Lawn Tennis</li>
+                        <li><b>Sportsperson</b>: Roger Federer</li>
+                        <li><b>Assembly</b>: fasmg</li>
+                        <li><b>Mēḷkarta Rāgam</b>: Mēcakaḷyāṇi</li>
+                        <li><b>Janya Rāgam</b>: Rītigauḷa</li>
+                        <li><b>Composition</b>: Rāga Ratna Mālikacē</li>
+                        <li><b>Composer</b>: Muthuswami Dikshithar</li>
+                        <li><b>Gamakam</b>: Bhṛga</li>
+                        <li><b>Singers</b>: Malladi Brothers</li>
+                        <li><b>Instrument</b>: Mandolin</li>
+                        <li><b>Manōdharmam</b>: Rāgam Tānam Pallavi</li>
+                        <li><b>Movie</b>: Māyābazār</li>
+                        <li><b>TV Series</b>: BBC Sherlock</li>
+                        <li><b>Colour</b>: Pink</li>
+                    </ul>
+                </div>
+            `.replace(/\n/g, '')
+        }
 };
 
 const app = {
@@ -884,7 +922,7 @@ const app = {
             else if (pageId === 'credits') {
                 w = 338; h = 338;
             }
-            else if (pageId === 'dangerous') {
+            else if (pageId === 'dangerous' || pageId === 'favourites') {
                 w = 500; h = 400;
             }
 
@@ -918,13 +956,17 @@ const app = {
         const isPostType = currentPage.startsWith('post-') && pages[currentPage]?.type === 'post';
 
         allPages.forEach(p => {
-            // Show item if it's not the current page
-            // Special case: if viewing a blog detail, don't show 'blog' in dropdown? Usually we DO show 'Blog' so user can go back to index.
+
+            if (p === 'contact') {
+                const separator = document.createElement('div');
+                separator.className = 'separator bevel-in';
+                dropdown.appendChild(separator);
+            }
+
             
             const btn = document.createElement('button');
             
             if (p === 'blog' && isBlogType) {
-                 // Already in blog section
                  btn.textContent = 'Blog Index';
                  btn.onclick = () => app.navigateTo('blog');
             } else if (p === 'posts' && isPostType) {

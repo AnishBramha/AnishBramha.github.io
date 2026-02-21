@@ -18,6 +18,13 @@
         "title": "Tail Call Optimisation",
         "date": "2026-02-16",
         "file": "tail-call-optimisation.md"
+    },
+
+    {
+        "id": "blog-clever-sangatis",
+        "title": "Padacchēdam – Nuance across Saŋgatis",
+        "date": "2026-02-21",
+        "file": "padacchedam.md"
     }
 ]
 
