@@ -6,6 +6,7 @@
   --sys-light: #eee;
   --sys-dark: #888;
   --sys-darker: #444;
+
   --sys-purple: #6a5acd;
   --sys-font: "ChicagoFLF", "Chicago", "Geneva", "Verdana", sans-serif;
   
@@ -160,6 +161,7 @@ body {
     display: flex; flex-direction: column;
     gap: 20px;
     z-index: 10;
+
     align-items: center;
 }
 
@@ -179,6 +181,7 @@ body {
     background: rgba(0,0,0,0.3);
     padding: 2px 4px;
     border-radius: 4px;
+
     font-size: 12px;
 }
 .desktop-icon:active img { opacity: 0.7; }
@@ -265,6 +268,7 @@ body {
 .window-body {
   flex-grow: 1;
   display: flex;
+
   flex-direction: column;
   height: 100%; 
   overflow: hidden;
@@ -327,6 +331,7 @@ body {
   background-color: #c0c0c0;
   border: 2px solid;
   border-color: #fff #444 #444 #fff;
+
   background-position: center;
   background-repeat: no-repeat;
   background-size: 13px;
@@ -380,7 +385,7 @@ body {
     transform: rotate(90deg); 
     letter-spacing: -1px;
     padding-bottom: -100px;
-    margin-right: 6px;
+    margin-right: 2px;
 }
 
 .dock-drawer {
@@ -406,6 +411,7 @@ body {
   height: 60px;
   background: #aaa;
   padding: 0 12px;
+
   border-radius: 4px;
   box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
@@ -505,6 +511,19 @@ body {
         opacity: 0.3;
         pointer-events: none;
         filter: grayscale(100%);
+    }
+
+    .dropdown {
+        min-width: 140px;
+        max-width: 160px;
+    }
+
+    .dropdown button {
+        font-size: 12px;
+        padding: 8px 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
 
