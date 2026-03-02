@@ -10,17 +10,21 @@ const state = {
 };
 
 const backgrounds = [
-    '#483D8B', 
-    '#8B4513', 
-    '#FA9EFF',
-    '#DD673B',
     '#C93032',
     '#B8860B', 
     '#B2B2B2',
+    '#191919',
+    '#00FF00',
+    '#6c0277',
+    '#f2cea4',
     '#708090',
     '#5F9EA0',
     '#4682B4',
     '#556B2F',
+    '#483D8B', 
+    '#8B4513', 
+    '#FA9EFF',
+    '#DD673B',
 ];
 
 const pages = {
@@ -472,7 +476,7 @@ const pages = {
             title: 'Favourites',
             content: `
                 <div style="text-align: left; padding: 10px 20px;">
-                    <h3 style="margin-top: 0; text-align: center;"> ✷ Favourites ✷ </h3>
+                    <h3 style="margin-top: 0; text-align: center;"> ✵ Favourites ✵ </h3>
                     <p style="text-align: center; margin-bottom: 15px;">
                         My favourites things across a lot of domains
                     </p>
@@ -491,7 +495,7 @@ const pages = {
                         <li><b>Sport</b>: Lawn Tennis</li>
                         <li><b>Sportsperson</b>: Roger Federer</li>
                         <li><b>Assembly</b>: fasmg</li>
-                        <li><b>Mēḷkarta Rāgam</b>: Mēcakaḷyāṇi</li>
+                        <li><b>Mēḷakarta Rāgam</b>: Mēcakaḷyāṇi</li>
                         <li><b>Janya Rāgam</b>: Rītigauḷa</li>
                         <li><b>Composition</b>: Rāga Ratna Mālikacē</li>
                         <li><b>Composer</b>: Muthuswami Dikshithar</li>
