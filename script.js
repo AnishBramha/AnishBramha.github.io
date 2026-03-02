@@ -426,7 +426,7 @@ const pages = {
                     <span style="display:inline-block; transform: rotate(180deg); font-size: 2.5em; vertical-align: middle; line-height: 1;">&copy;</span> All Wrongs Reserved
                 </p>
                 <p style="margin: 0 0 15px 0;">Anish Teja Bramhajosyula</p>
-                <p style="margin: 0 0 15px 0;">Huge thanks to <a href="https://aravind-bramha.netlify.app" target="_blank" style="color: #6a5acd;">Aravind Bramhajosyula</a>!</p>
+                <p style="margin: 0 0 15px 0;">Huge thanks to <a href="https://aravindbramha.github.io" target="_blank" style="color: #6a5acd;">Aravind Bramhajosyula</a>!</p>
                 
                 <a href="https://www.gnu.org/licenses/gpl-3.0-standalone.html" target="_blank" style="text-decoration: none; margin-bottom: 10px; display: block;">
                     <img src="https://www.gnu.org/graphics/gplv3-with-text-136x68.png" width="136" alt="GPLv3 Logo">
