@@ -25,6 +25,13 @@
         "title": "Padacchēdam – Nuance across Saŋgatis",
         "date": "2026-02-21",
         "file": "padacchedam.md"
+    },
+
+    {
+        "id": "blog-whack-a-mole",
+        "title": "Compiler Whack-A-Mole",
+        "date": "2026-03-07",
+        "file": "whackamole.md"
     }
 ]
 
