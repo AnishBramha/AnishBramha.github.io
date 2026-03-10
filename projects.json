@@ -1,5 +1,11 @@
 [
     {
+        "name": "lispc",
+        "description": "A single-pass compiler for a subset of Common Lisp. Converts lisp source to TAC-like intermediate representation and compiles to Assembly.",
+        "link": "https://github.com/AnishBramha/lispc"
+    },
+
+    {
         "name": "cscript",
         "description": "A high-level, dynamic, interpreted, weakly-interpreted scripting language in the Lisp-1 family with an integrated REPL. Built using a bottom-up parser which constructs a metaprogrammed AST using the visitor pattern.",
         "link": "https://github.com/AnishBramha/cscript"
