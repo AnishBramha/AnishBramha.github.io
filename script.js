@@ -693,7 +693,7 @@ const app = {
             return;
         }
 
-        fetch(`${rootDir}/${pageData.file}`)
+        fetch(`${rootDir}/${pageData.file}`, { cache: "no-store" })
             .then(res => {
                 if (!res.ok) throw new Error('File not found');
                 return res.text();

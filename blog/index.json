@@ -32,6 +32,13 @@
         "title": "Compiler Whack-A-Mole",
         "date": "2026-03-07",
         "file": "whackamole.md"
+    },
+
+    {
+        "id": "blog-telugu-poem",
+        "title": "మృగము",
+        "date": "2026-05-06",
+        "file": "telugu-poem.md"
     }
 ]
 
