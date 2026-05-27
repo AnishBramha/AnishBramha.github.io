@@ -1,9 +1,17 @@
 [
     {
+        "name": "cmux",
+        "description": "A real–time live collaborative code editor with parallel editing and line–by–line locking, and file sharing among users and user account control by an administrator.",
+        "link": "https://github.com/AnishBramha/cmux"
+    },
+
+
+    {
         "name": "lispc",
         "description": "A single-pass compiler for a subset of Common Lisp. Converts lisp source to TAC-like intermediate representation and compiles to Assembly.",
         "link": "https://github.com/AnishBramha/lispc"
     },
+
 
     {
         "name": "cscript",

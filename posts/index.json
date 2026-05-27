@@ -45,6 +45,14 @@
     "description": "The assignment, mistake it you will for an equality",
     "date": "2026-02-18",
     "file": "yoda-conditions.md"
+  },
+
+  {
+    "id": "post-conlang-treatise",
+    "title": "Conlang Treatise",
+    "description": "A Grammatical Treatise on my Conlang — Granthōmukhīm",
+    "date": "2026-05-27",
+    "file": "conlang-treatise.md"
   }
 ]
 
