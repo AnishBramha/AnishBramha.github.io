@@ -287,7 +287,7 @@ const pages = {
             <div style="line-height: 1.5;">
                 <p>Welcome to my website! This is my personal space in the internet where I write <a onclick="app.navigateTo('blog')">blogs</a>, <a onclick="app.navigateTo('posts')">post</a> about interesting stuff, showcase my <a onclick="app.navigateTo('projects')">projects</a> and <a onclick="app.navigateTo('socials')">connect</a> with people who find me here!</p>
 
-                <p>I am <b>Anish Teja Bramhajosyula</b>, a sophomore at the International Institute of Information Technology, Bangalore, majoring in Computer Science & Engineering. I love languages, both programming and natural, and mathematics. One of my pastimes is exploring programming languages — making and breaking. I love exploring and analysing different paradigms (mostly functional and meta).</p>
+                <p>I am <b>Anish Teja Bramhajosyula</b>, a sophomore at the International Institute of Information Technology, Hyderabad, majoring in Computer Science. I love languages, both programming and natural, and compilers. One of my pastimes is exploring programming languages — making and breaking.</p>
 
                 <p>I love singing and listening to Carnatic Music. I take pride in being an ardent <em>rasikā</em>. I also enjoy a warm cup of hot chocolate anytime.</p>
 
