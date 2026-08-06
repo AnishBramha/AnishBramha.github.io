@@ -409,7 +409,7 @@ const pages = {
         title: "Anish Teja's Website",
         content: `
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
-                <h3 style="margin: 0 0 10px 0;">Version 1.7</h3>
+                <h3 style="margin: 0 0 10px 0;">Version 1.8</h3>
                 <p style="margin: 0 0 20px 0;">Made with ♥</p>
                 <div style="display: flex; gap: 15px; margin-bottom: 25px;">
                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="40" height="40" alt="HTML5" title="HTML5">
@@ -462,13 +462,14 @@ const pages = {
                 </p>
                 <ul style="line-height: 1.5;">
                     <li>The execessive use of Ctrl and Meta keys in Emacs is capable of causing arthritis</li>
-                    <li>Microslop vibe-coding 30% of Windows is why it sucks</li>
+                    <li>Microslop vibe-coding the entirety of Windows is why it sucks. The underlying architecture is shrouded in an unusable, bloated, Copilot-assisted interface.</li>
                     <li>BSD package managers are much better than those built for GNU/Linux</li>
-                    <li>Gnome sucks and is for noobs – KDE is decent – serious people use XFCE/Mate – gods use only TTY</li>
+                    <li>Gnome sucks and is for noobs – KDE is decent – serious people use XFCE/Mate/Sway/i3 – gods use only TTY</li>
                     <li>Skeumorphism is the way to go and liquid-glass transparent metro style frutiger aero ripoffs are copium for modern day vibecoders to make blocky lifeless and characterless interfaces appeal to people after a decade of shoving flat interfaces down our faces</li>
                     <li>C must have slices: the bare minimum and it's overdue</li>
                     <li>Half of Rust's unsafe features being in nightly phase even after over 15 years of the existence of this language is proof that they don't want people linking with libc and messing with their 'safe' prescription of Rust</li>
-                    <li>TM Krishna was right all along :(</li>
+                    <li>Yesudas deserves the Sangita Kalanidhi more than anyone else at this point in time.</li>
+                    <li>TM Krishna is right in some aspects.</li>
                 </ul>
             </div>
         `.replace(/\n/g, '')
@@ -483,19 +484,19 @@ const pages = {
                     </p>
                     <ul style="line-height: 1.5;">
                         <li><b>Natural Non-Native Language</b>: Sanskrit</li>
-                        <li><b>Writing System</b>: Hebrew</li>
+                        <li><b>Writing System</b>: Brahmi</li>
                         <li><b>Programming Language</b>: C</li>
                         <li><b>Code Editor</b>: NeoVim</li>
-                        <li><b>Operating System</b>: Debian</li>
+                        <li><b>Operating System</b>: CachyOS (Arch btw)</li>
                         <li><b>Kernel</b>: FreeBSD</li>
                         <li><b>Shell</b>: zsh</li>
                         <li><b>Terminal Emulator</b>: Ghostty</li>
-                        <li><b>Desktop Environment</b>: XFCE</li>
+                        <li><b>Desktop Environment</b>: KDE-ATP</li>
                         <li><b>Book</b>: <i>Dead Souls</i> by Nikolai Gogol</li>
                         <li><b>Game</b>: EA Cricket 07</li>
                         <li><b>Sport</b>: Lawn Tennis</li>
                         <li><b>Sportsperson</b>: Roger Federer</li>
-                        <li><b>Assembly</b>: fasmg</li>
+                        <li><b>Assembly</b>: GAS</li>
                         <li><b>Mēḷakarta Rāgam</b>: Mēcakaḷyāṇi</li>
                         <li><b>Janya Rāgam</b>: Rītigauḷa</li>
                         <li><b>Composition</b>: Rāga Ratna Mālikacē</li>
@@ -505,8 +506,8 @@ const pages = {
                         <li><b>Instrument</b>: Mandolin</li>
                         <li><b>Manōdharmam</b>: Rāgam Tānam Pallavi</li>
                         <li><b>Movie</b>: Māyābazār</li>
-                        <li><b>TV Series</b>: BBC Sherlock</li>
-                        <li><b>Colour</b>: Pink</li>
+                        <li><b>TV Series</b>: Star Trek: The Original Series</li>
+                        <li><b>Colour</b>: Pink (#F968E1)</li>
                     </ul>
                 </div>
             `.replace(/\n/g, '')
